@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "172634904683",
+    "firebase_url": "https://mozgovanje-6b82c.firebaseio.com",
+    "project_id": "mozgovanje-6b82c",
+    "storage_bucket": "mozgovanje-6b82c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:172634904683:android:190185165ceb354ac2392e",
+        "android_client_info": {
+          "package_name": "project.mozgovanje"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "172634904683-m09ulpqrlhhi5hc4vsuae85gvdgjmbmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKRxpsmR_rmznhlK-yfQFEmZi1cmtuMjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "172634904683-m09ulpqrlhhi5hc4vsuae85gvdgjmbmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
