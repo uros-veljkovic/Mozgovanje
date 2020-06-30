@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Mozgovanje</string>
+    <string name="home">Home</string>
+    <string name="all_questions">All questions</string>
+    <string name="scoreboard">Scoreboard</string>
+    <string name="user">My profile</string>
+    <string name="tvWelcome">Zdravo, izaberite mod</string>
+    <string name="tvTestMod">Test (40 pitanja)</string>
+    <string name="tvGeekMod">Geek (100 pitanja)</string>
+    <string name="tvZenMod">Zen (20 pitanja)</string>
+    <string name="hint_sadrzaj_pitanja">Unesite sadržaj pitanja</string>
 </resources>

@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WelcomeActivity">
+    tools:context=".activity.welcome.WelcomeActivity">
 
     <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/activity_welcome_givMozgovanje"
+        android:id="@+id/activity_welcome_gifMozgovanje"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/mozgovanjeGIF"
+        android:src="@drawable/mozgovanje_gif"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

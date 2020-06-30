@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="20dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        >
+
+        <TextView
+            android:textStyle="bold"
+            android:id="@+id/question_item_tvQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:text="Question"
+            android:background="@drawable/textview_border_lines"
+            android:paddingLeft="5dp"
+            android:paddingVertical="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/question_item_tvAnswer1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question_item_tvQuestion"
+            android:maxLines="2"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Answer 1" />
+
+        <TextView
+            android:id="@+id/question_item_tvAnswer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question_item_tvAnswer1"
+            android:maxLines="2"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Answer 2" />
+
+        <TextView
+            android:id="@+id/question_item_tvAnswer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question_item_tvAnswer2"
+            android:maxLines="2"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Answer 3" />
+
+        <TextView
+            android:id="@+id/question_item_tvAnswer4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/question_item_tvAnswer3"
+            android:maxLines="2"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp"
+            android:text="Answer 4" />
+
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

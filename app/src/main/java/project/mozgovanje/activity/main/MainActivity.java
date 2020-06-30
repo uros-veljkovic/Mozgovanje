@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import project.mozgovanje.R;
-import project.mozgovanje.activity.main.fragments.FragmentAllQuestions;
+import project.mozgovanje.activity.main.fragments.allquestions.FragmentAllQuestions;
 import project.mozgovanje.activity.main.fragments.FragmentHome;
 import project.mozgovanje.activity.main.fragments.FragmentScoreboard;
 import project.mozgovanje.activity.main.fragments.FragmentUser;
@@ -58,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             assert selectedFragment != null;
-            getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_fragment_container,
-                    selectedFragment).commit();
+            //Ovde kaze zameni mi FrameLayout sa izabranim fragmentom
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.activity_main_fragment_container,
+                            selectedFragment)
+                    .commit();
 
 
             return true;
