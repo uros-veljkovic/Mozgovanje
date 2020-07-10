@@ -5,13 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_brain_foreground"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.welcome.WelcomeActivity"/>
+        <activity android:name=".activity.quiz.wrongquestions.WrongQuestionsActivity"></activity>
+        <activity android:name=".activity.quiz.result.QuizResultActivity" />
+        <activity android:name=".activity.quiz.QuizActivity" />
+        <activity android:name=".activity.welcome.WelcomeActivity" />
         <activity android:name=".activity.auth.createaccount.CreateAccountActivity" />
         <activity android:name=".activity.main.MainActivity" />
         <activity android:name=".activity.auth.login.LoginActivity">

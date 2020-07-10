@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="project.mozgovanje.util.string.StringUtil" />
+
+        <variable
+            name="clickHandler"
+            type="project.mozgovanje.activity.quiz.QuizActivity.ClickHandler" />
+
+        <variable
+            name="quizMaster"
+            type="project.mozgovanje.model.quizmaster.QuizMaster" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".activity.quiz.QuizActivity">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary1"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/activitiy_quiz_tvQuestionNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="@{quizMaster.currentQuizState}"
+                android:textColor="@color/colorTertiary1"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/activitiy_quiz_tvQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@{quizMaster.currentQuestion.questionText}"
+                android:textColor="@color/colorTertiary1"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edittext_rounded"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer1}"
+                android:text="@{quizMaster.currentQuestion.answer1}"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edittext_rounded"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer2}"
+                android:text="@{quizMaster.currentQuestion.answer2}"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edittext_rounded"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer3}"
+                android:text="@{quizMaster.currentQuestion.answer3}"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edittext_rounded"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer4}"
+                android:text="@{quizMaster.currentQuestion.answer4}"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_quiz_tvCountdown"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/edittext_rounded"
+            android:backgroundTint="@color/colorTertiary1"
+            android:gravity="center"
+            android:text="@{StringUtil.convertIntToString(quizMaster.currentQuestion.questionID)}"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

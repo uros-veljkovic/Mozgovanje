@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="clickHandler"
+            type="project.mozgovanje.activity.main.fragments.newquestion.NewQuestionFragment.ClickHandler" />
+
+        <variable
+            name="question"
+            type="project.mozgovanje.model.question.Question" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activity.main.fragments.newquestion.NewQuestionFragment">
+
+            <TextView
+                android:id="@+id/fragment_new_question_tvQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:text="Pitanje"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/fragment_new_question_etQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="93dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_border"
+                android:ems="10"
+                android:text="@={question.questionText}"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_tvQuestion" />
+
+            <TextView
+                android:id="@+id/fragment_new_question_tvAnswerA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Odgovor A"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_etQuestion" />
+
+            <EditText
+                android:id="@+id/fragment_new_question_etAnswerA"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="@={question.answer1}"
+                android:background="@drawable/edit_text_green_border"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_tvAnswerA" />
+
+            <TextView
+                android:id="@+id/fragment_new_question_tvAnswerB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Odgovor B"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_etAnswerA" />
+
+            <EditText
+                android:id="@+id/fragment_new_question_etAnswerB"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:text="@={question.answer2}"
+                android:background="@drawable/edit_text_red_border"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_tvAnswerB" />
+
+            <TextView
+                android:id="@+id/fragment_new_question_tvAnswerC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Odgovor C"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_etAnswerB" />
+
+            <EditText
+                android:id="@+id/fragment_new_question_etAnswerC"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:text="@={question.answer3}"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_red_border"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_tvAnswerC" />
+
+            <TextView
+                android:id="@+id/fragment_new_question_tvAnswerD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Odgovor D"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_etAnswerC" />
+
+            <EditText
+                android:id="@+id/fragment_new_question_etAnswerD"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edit_text_red_border"
+                android:text="@={question.answer4}"
+                android:ems="10"
+                android:gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_tvAnswerD" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="Tacan odgovor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_question_etAnswerD" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:checkedButton="@id/fragment_new_question_rbA"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                <RadioButton
+                    android:id="@+id/fragment_new_question_rbA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{clickHandler::correctAnswerA}"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="A" />
+
+                <RadioButton
+                    android:id="@+id/fragment_new_question_rbB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{clickHandler::correctAnswerB}"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="B" />
+
+                <RadioButton
+                    android:id="@+id/fragment_new_question_rbC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{clickHandler::correctAnswerC}"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="C" />
+
+                <RadioButton
+                    android:id="@+id/fragment_new_question_rbD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{clickHandler::correctAnswerD}"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:text="D" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/fragment_new_question_btnOdustani"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginTop="32dp"
+                android:onClick="@{clickHandler::onBtnResetujPolja}"
+                android:text="Resetuj"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+
+
+            <Button
+                android:id="@+id/fragment_new_question_btnSacuvaj"
+                android:layout_width="wrap_content"
+                android:background="@android:color/holo_blue_dark"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="64dp"
+                android:onClick="@{clickHandler::onBtnSacuvaj}"
+                android:text="Sačuvaj"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

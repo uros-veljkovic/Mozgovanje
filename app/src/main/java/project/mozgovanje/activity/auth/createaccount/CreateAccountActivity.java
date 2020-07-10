@@ -1,76 +1,74 @@
 package project.mozgovanje.activity.auth.createaccount;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import project.mozgovanje.R;
 import project.mozgovanje.activity.welcome.WelcomeActivity;
-import project.mozgovanje.credentials.CreateAccountCredentials;
+import project.mozgovanje.model.credentials.CreateAccountCredentials;
+import project.mozgovanje.databinding.ActivityCreateAccountBinding;
 import project.mozgovanje.db.controller.DatabaseController;
 
-public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateAccountActivity extends AppCompatActivity {
 
 
-    private EditText etUsername;
-    private EditText etEmail;
-    private EditText etPassword;
-    private EditText etConfirmPassword;
-    private Button btnCreateAccount;
+    private ActivityCreateAccountBinding binding;
+    private CreateAccountCredentials createAccountCredentials;
+    private ClickHandler clickHandler;
 
+//    private Animation buttonAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_account);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_create_account);
 
-        initActivityElements();
+        initBinding();
     }
 
-    private void initActivityElements() {
+    private void initBinding() {
+        createAccountCredentials = new CreateAccountCredentials();
+        clickHandler = new ClickHandler(this);
 
-        etUsername = findViewById(R.id.activity_create_account_etUsername);
-        etEmail = findViewById(R.id.activity_create_account_etEmail);
-        etPassword = findViewById(R.id.activity_create_account_etPassword);
-        etConfirmPassword = findViewById(R.id.activity_create_account_etConfirmPassword);
+        binding.setCredentials(createAccountCredentials);
+        binding.setClickHandler(clickHandler);
 
-        btnCreateAccount = findViewById(R.id.activity_create_account_btnCreateAccount);
-        btnCreateAccount.setOnClickListener(this);
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.activity_create_account_btnCreateAccount:
-                onBtnCreateAccount();
-                break;
-            default:
-                break;
-        }
-    }
+    public class ClickHandler {
+        private Context context;
 
-    private void onBtnCreateAccount() {
-
-        String username = etUsername.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString().trim();
-        String confirmPassword = etConfirmPassword.getText().toString().trim();
-        CreateAccountCredentials credentials = new CreateAccountCredentials(username, email, password, confirmPassword);
-
-        DatabaseController.getInstance().setContext(this);
-        try {
-            DatabaseController.getInstance().createAccount(credentials);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return;
+        public ClickHandler(Context context) {
+            this.context = context;
         }
 
-        Intent intent = new Intent(CreateAccountActivity.this, WelcomeActivity.class);
-        startActivity(intent);
+        public void onBtnCreateAccount(View view) {
+            try {
+                DatabaseController.getInstance().createAccount(context, createAccountCredentials);
+            } catch (Exception e) {
+                Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+/*        public void startActivityWithDelay(final Class activityClass) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Intent intent = new Intent(context, activityClass);
+                    startActivity(intent);
+                    finish();
+                }
+            }, 1000);
+        }*/
     }
 }

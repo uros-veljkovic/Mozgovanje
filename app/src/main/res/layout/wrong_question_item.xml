@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="question"
+            type="project.mozgovanje.model.question.Question" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/wrong_question_item_tvQuestionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/textview_border_lines"
+                android:maxLines="2"
+                android:paddingVertical="10dp"
+                android:paddingLeft="5dp"
+                android:text="@{question.questionText}"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/wrong_question_item_tvAnswer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wrong_question_item_tvQuestionText"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@{question.answer1}" />
+
+            <TextView
+                android:id="@+id/wrong_question_item_tvAnswer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wrong_question_item_tvAnswer1"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@{question.answer2}" />
+
+
+            <TextView
+                android:id="@+id/wrong_question_item_tvAnswer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wrong_question_item_tvAnswer2"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@{question.answer3}" />
+
+            <TextView
+                android:id="@+id/wrong_question_item_tvAnswer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wrong_question_item_tvAnswer3"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@{question.answer4}"/>
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

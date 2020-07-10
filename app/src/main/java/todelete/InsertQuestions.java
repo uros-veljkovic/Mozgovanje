@@ -17,7 +17,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import project.mozgovanje.model.Question;
+import project.mozgovanje.model.question.Question;
 
 public class InsertQuestions {
 

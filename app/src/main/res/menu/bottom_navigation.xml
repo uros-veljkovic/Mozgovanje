@@ -11,6 +11,11 @@
         android:title="@string/all_questions" />
 
     <item
+        android:id="@+id/activity_main_nav_new_question"
+        android:icon="@drawable/ic_baseline_add"
+        android:title="@string/new_question" />
+
+    <item
         android:id="@+id/activity_main_nav_scoreboard"
         android:icon="@drawable/ic_scoreboard"
         android:title="@string/scoreboard" />
