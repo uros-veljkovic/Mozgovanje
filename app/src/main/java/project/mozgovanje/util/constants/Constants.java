@@ -2,13 +2,15 @@ package project.mozgovanje.util.constants;
 
 public interface Constants {
 
-    public static final String FIRESTORE_QUESTION_COLLECTION = "Questions";
-    public static final String FIRESTORE_PENDING_QUESTION_COLLECTION = "Pending questions";
-    public static final String FIRESTORE_USER_COLLECTION = "Users";
+    public static final String ADMIN_EMAIL = "admin.admin@gmail.com";
 
-    public static final String FIRESTORE_ZEN_SCOREBOARD_COLLECTION = "Zen scoreboard";
-    public static final String FIRESTORE_TEST_SCOREBOARD_COLLECTION = "Test scoreboard";
-    public static final String FIRESTORE_GEEK_SCOREBOARD_COLLECTION = "Geek scoreboard";
+    public static final String FIRESTORE_QUESTION_COLLECTION = "Questions";
+    public static final String FIRESTORE_USERS_COLLECTION = "Users";
+    public static final String FIRESTORE_PENDING_QUESTION_COLLECTION = "Pending_questions";
+
+    public static final String FIRESTORE_ZEN_SCOREBOARD_COLLECTION = "Zen_scoreboard";
+    public static final String FIRESTORE_TEST_SCOREBOARD_COLLECTION = "Test_scoreboard";
+    public static final String FIRESTORE_GEEK_SCOREBOARD_COLLECTION = "Geek_scoreboard";
 
     public static final String MODE = "MODE";
     public static final int ZEN_MODE = 1;

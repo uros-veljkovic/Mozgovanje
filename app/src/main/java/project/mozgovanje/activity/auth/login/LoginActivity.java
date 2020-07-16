@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         initBinding();
     }
 
+
     private void initBinding() {
 
         clickHandler = new ClickHandler(this);

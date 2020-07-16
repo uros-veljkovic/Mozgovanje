@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="project.mozgovanje.util.string.StringUtil" />
+
+        <variable
+            name="question"
+            type="project.mozgovanje.model.question.Question" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:elevation="5dp"
+        app:cardBackgroundColor="@color/light_grey"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+            android:id="@+id/activity_admin_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <EditText
+                android:id="@+id/question_item_tvQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/textview_border_lines"
+                android:elevation="3dp"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:paddingVertical="10dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="@={question.questionText}"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/question_item_tvAnswer1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question_item_tvQuestion"
+                android:background="@android:color/transparent"
+                android:inputType="none"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@={question.answer1}"
+                android:textColor="@{question.isAnswerACorrect() ?  @color/googleGreen : @color/googleRed}"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/question_item_tvAnswer2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question_item_tvAnswer1"
+                android:background="@android:color/transparent"
+                android:inputType="none"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@={question.answer2}"
+                android:textColor="@{question.isAnswerBCorrect() ?  @color/googleGreen : @color/googleRed}"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/question_item_tvAnswer3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question_item_tvAnswer2"
+                android:background="@android:color/transparent"
+                android:inputType="none"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@={question.answer3}"
+                android:textColor="@{question.isAnswerCCorrect() ?  @color/googleGreen : @color/googleRed}"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/question_item_tvAnswer4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/question_item_tvAnswer3"
+                android:layout_marginTop="0dp"
+                android:background="@android:color/transparent"
+                android:inputType="none"
+                android:maxLines="2"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:text="@={question.answer4}"
+                android:textColor="@{question.isAnswerDCorrect() ?  @color/googleGreen : @color/googleRed}"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/question_item_btnEdit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@id/question_item_tvAnswer4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_pen"
+                android:gravity="end" />
+
+            <Button
+                android:id="@+id/question_item_btnDelete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+
+                android:layout_alignTop="@id/question_item_btnEdit"
+                android:layout_alignEnd="@id/question_item_tvAnswer4"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/ic_trash" />
+
+            <Button
+                android:id="@+id/question_item_btnSave"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignStart="@id/question_item_tvAnswer4"
+                android:layout_alignTop="@id/question_item_btnEdit"
+                android:background="@drawable/ic_check" />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>

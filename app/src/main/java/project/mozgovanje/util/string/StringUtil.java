@@ -6,4 +6,17 @@ public class StringUtil {
         return String.valueOf(value);
     }
 
+    public static String getPoints(int points) {
+        return "" + points + " pts";
+    }
+
+    public static String getCorrectAnswerColor(){
+        return "#85bb65";
+    }
+
+    public static String getWrongAnswerColor(){
+        return "#ff0033";
+    }
+
+
 }

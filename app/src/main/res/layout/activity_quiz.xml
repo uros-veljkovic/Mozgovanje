@@ -50,7 +50,7 @@
                 android:layout_height="150dp"
                 android:layout_margin="16dp"
                 android:gravity="center"
-                android:maxLines="2"
+                android:maxLines="3"
                 android:text="@{quizMaster.currentQuestion.questionText}"
                 android:textColor="@color/colorTertiary1"
                 android:textSize="18sp"

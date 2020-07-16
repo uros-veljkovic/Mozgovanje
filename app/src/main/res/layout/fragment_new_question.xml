@@ -243,7 +243,8 @@
             <Button
                 android:id="@+id/fragment_new_question_btnSacuvaj"
                 android:layout_width="wrap_content"
-                android:background="@android:color/holo_blue_dark"
+                android:background="@color/googleBlue"
+
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:layout_marginEnd="64dp"

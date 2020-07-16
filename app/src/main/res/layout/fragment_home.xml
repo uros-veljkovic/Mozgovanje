@@ -35,6 +35,8 @@
             android:background="@android:color/transparent"
             android:foreground="@mipmap/ic_yinyang_foreground"
             android:onClick="@{clickHandler::onBtnZenMode}"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main_tvZenMode"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_main_tvWelcome" />
 
@@ -47,6 +49,8 @@
             android:background="@android:color/transparent"
             android:foreground="@mipmap/ic_exam_foreground"
             android:onClick="@{clickHandler::onBtnTestMode}"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main_tvTestMode"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_main_btnZenMode" />
 
@@ -59,6 +63,8 @@
             android:background="@android:color/transparent"
             android:foreground="@mipmap/ic_geek_round"
             android:onClick="@{clickHandler::onBtnGeekMode}"
+            app:layout_constraintEnd_toStartOf="@+id/activity_main_tvGeekMode"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_main_btnTestMode" />
 
@@ -70,7 +76,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/activity_main_btnZenMode"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.467"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/activity_main_btnZenMode"
             app:layout_constraintTop_toTopOf="@+id/activity_main_btnZenMode" />
 
@@ -82,6 +88,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/activity_main_btnTestMode"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/activity_main_btnTestMode"
             app:layout_constraintTop_toTopOf="@+id/activity_main_btnTestMode" />
 
@@ -93,6 +100,7 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/activity_main_btnGeekMode"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/activity_main_btnGeekMode"
             app:layout_constraintTop_toTopOf="@+id/activity_main_btnGeekMode" />
 

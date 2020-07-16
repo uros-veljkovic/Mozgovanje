@@ -13,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import project.mozgovanje.R;
+import project.mozgovanje.activity.auth.login.LoginActivity;
 import project.mozgovanje.activity.welcome.WelcomeActivity;
 import project.mozgovanje.model.credentials.CreateAccountCredentials;
 import project.mozgovanje.databinding.ActivityCreateAccountBinding;
@@ -25,14 +26,18 @@ public class CreateAccountActivity extends AppCompatActivity {
     private CreateAccountCredentials createAccountCredentials;
     private ClickHandler clickHandler;
 
-//    private Animation buttonAnimation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_create_account);
 
         initBinding();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(CreateAccountActivity.this, LoginActivity.class));
     }
 
     private void initBinding() {
@@ -59,16 +64,5 @@ public class CreateAccountActivity extends AppCompatActivity {
             }
 
         }
-
-/*        public void startActivityWithDelay(final Class activityClass) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Intent intent = new Intent(context, activityClass);
-                    startActivity(intent);
-                    finish();
-                }
-            }, 1000);
-        }*/
     }
 }

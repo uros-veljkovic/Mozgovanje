@@ -2,15 +2,14 @@ package project.mozgovanje.activity.main;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import project.mozgovanje.R;
 import project.mozgovanje.activity.main.fragments.allquestions.AllQuestionsFragment;
@@ -18,31 +17,42 @@ import project.mozgovanje.activity.main.fragments.home.FragmentHome;
 import project.mozgovanje.activity.main.fragments.newquestion.NewQuestionFragment;
 import project.mozgovanje.activity.main.fragments.scoreboard.ScoreboardFragment;
 import project.mozgovanje.activity.main.fragments.user.FragmentUser;
+import project.mozgovanje.databinding.ActivityMainBinding;
 import project.mozgovanje.db.controller.DatabaseController;
 import project.mozgovanje.model.api.UserAPI;
 
 public class MainActivity extends AppCompatActivity {
 
-    private BottomNavigationView bottomNav;
+    private ActivityMainBinding binding;
+    private ClickHandler clickHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        initBinding();
+        initHomeFragment();
+    }
 
-        initActivityElements();
+    private void initBinding() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        clickHandler = new ClickHandler(this);
+        binding.setClickHandler(clickHandler);
+    }
+
+    private void initHomeFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_fragment_container, new FragmentHome()).commit();
+        Toast.makeText(MainActivity.this, "Hi " + UserAPI.getInstance().getUsername(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.more_options_menu, menu);
+        getMenuInflater().inflate(R.menu.more_options_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.btnLogout:
                 DatabaseController.getInstance().logout(this);
                 return true;
@@ -52,21 +62,20 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    private void initActivityElements() {
-        bottomNav = findViewById(R.id.activity_main_bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_fragment_container, new FragmentHome()).commit();
-        Toast.makeText(MainActivity.this, "Hi " + UserAPI.getInstance().getUsername(), Toast.LENGTH_SHORT).show();
 
-    }
+    public class ClickHandler {
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        public Context context;
+
+        public ClickHandler(Context context) {
+            this.context = context;
+        }
+
+        public boolean onNavigationClick(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.activity_main_nav_home:
-                    selectedFragment = new FragmentHome();
+                    selectedFragment = new FragmentHome(); //Gotov Binding
                     break;
                 case R.id.activity_main_nav_scoreboard:
                     selectedFragment = new ScoreboardFragment();
@@ -95,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
-    };
 
+    }
 
 }

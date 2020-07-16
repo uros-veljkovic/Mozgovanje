@@ -2,69 +2,43 @@ package project.mozgovanje.activity.main.fragments.scoreboard;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.Collections;
 import java.util.List;
 
 import project.mozgovanje.R;
-import project.mozgovanje.activity.main.fragments.allquestions.AllQuestionsRecyclerViewAdapter;
-import project.mozgovanje.model.user.UserScore;
+import project.mozgovanje.databinding.UserScoreItemBinding;
+import project.mozgovanje.model.score.Score;
 
 public class ScoreboardRecyclerViewAdapter extends RecyclerView.Adapter<ScoreboardRecyclerViewAdapter.ViewHolder> {
 
-    private List<UserScore> scores;
+    private List<Score> scores;
     private Context context;
 
-    public ScoreboardRecyclerViewAdapter(Context context, List<UserScore> allScores) {
-        this.scores = allScores;
+    public ScoreboardRecyclerViewAdapter(Context context, List<Score> scores) {
+        this.scores = scores;
         this.context = context;
     }
 
     @NonNull
     @Override
     public ScoreboardRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.user_score_item, parent, false);
-        return new ScoreboardRecyclerViewAdapter.ViewHolder(view);
+
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        UserScoreItemBinding binding = UserScoreItemBinding.inflate(inflater, parent, false);
+
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        UserScore score = scores.get(position);
-
-        int place = ++position;
-
-        String usernameWithPlace = String.format("%d. %s", place, score.getUsername());
-        holder.tvUsername.setText(usernameWithPlace);
-        holder.tvTotalScore.setText(String.valueOf(score.getTotalAnswersCorrect()));
-        setMedal(holder, position);
-
-    }
-
-    private void setMedal(@NonNull ViewHolder holder, int position) {
-        switch (position) {
-            case 1:
-                holder.ivMedal.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.gold_medal));
-                break;
-            case 2:
-                holder.ivMedal.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.silver_medal));
-                break;
-            case 3:
-                holder.ivMedal.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.bronze_medal));
-                break;
-            default:
-                holder.ivMedal.setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.no_medal));
-                break;
-        }
+        Score score = scores.get(position);
+        holder.bindScore(score, position);
     }
 
     @Override
@@ -72,18 +46,41 @@ public class ScoreboardRecyclerViewAdapter extends RecyclerView.Adapter<Scoreboa
         return scores.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView ivMedal;
-        public TextView tvUsername;
-        public TextView tvTotalScore;
+        private UserScoreItemBinding binding;
+        private ImageView ivMedal;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            ivMedal = itemView.findViewById(R.id.fragment_scoreboard_ivMedal);
-            tvUsername = itemView.findViewById(R.id.fragment_scoreboard_tvUsername);
-            tvTotalScore = itemView.findViewById(R.id.fragment_scoreboard_tvTotalScore);
+
+        public ViewHolder(UserScoreItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
+
+        public void bindScore(Score score, int position) {
+            binding.setScore(score);
+            switch (++position) {
+                case 1:
+                    binding.fragmentScoreboardIvMedal
+                            .setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.gold_medal));
+                    break;
+                case 2:
+                    binding.fragmentScoreboardIvMedal
+                            .setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.silver_medal));
+                    break;
+                case 3:
+                    binding.fragmentScoreboardIvMedal
+                            .setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.bronze_medal));
+                    break;
+                default:
+                    binding.fragmentScoreboardIvMedal
+                            .setImageDrawable(ContextCompat.getDrawable(context, R.mipmap.no_medal));
+                    break;
+            }
+            binding.notifyChange();
+            binding.executePendingBindings();
+        }
+
     }
 
 }

@@ -13,35 +13,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.mozgovanje.R;
+import project.mozgovanje.databinding.QuestionItemBinding;
+import project.mozgovanje.databinding.UserScoreItemBinding;
 import project.mozgovanje.model.question.Question;
 
 public class AllQuestionsRecyclerViewAdapter extends RecyclerView.Adapter<AllQuestionsRecyclerViewAdapter.ViewHolder> {
 
     private List<Question> allQuestions;
-    private Context context;
 
-    public AllQuestionsRecyclerViewAdapter(Context context, ArrayList<Question> allQuestions) {
-        this.context = context;
+    public AllQuestionsRecyclerViewAdapter(ArrayList<Question> allQuestions) {
         this.allQuestions = allQuestions;
     }
 
     @NonNull
     @Override
     public AllQuestionsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context)
-                .inflate(R.layout.question_item, parent, false);
-        return new AllQuestionsRecyclerViewAdapter.ViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        QuestionItemBinding binding = QuestionItemBinding.inflate(inflater, parent, false);
+
+        return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AllQuestionsRecyclerViewAdapter.ViewHolder holder, int position) {
-        Question question = allQuestions.get(position);
 
-        holder.tvQuestion.setText(question.getQuestionText());
-        holder.tvAnswer1.setText(question.getAnswer1());
-        holder.tvAnswer2.setText(question.getAnswer2());
-        holder.tvAnswer3.setText(question.getAnswer3());
-        holder.tvAnswer4.setText(question.getAnswer4());
+        Question question = allQuestions.get(position);
+        holder.bindQuestion(question);
 
     }
 
@@ -50,29 +47,24 @@ public class AllQuestionsRecyclerViewAdapter extends RecyclerView.Adapter<AllQue
         return allQuestions.size();
     }
 
-    public void filterList(ArrayList<Question> filteredList){
+    public void filterList(ArrayList<Question> filteredList) {
         allQuestions = filteredList;
         notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvQuestion;
-        public TextView tvAnswer1;
-        public TextView tvAnswer2;
-        public TextView tvAnswer3;
-        public TextView tvAnswer4;
+        private QuestionItemBinding binding;
 
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvQuestion = itemView.findViewById(R.id.question_item_tvQuestion);
-            tvAnswer1 = itemView.findViewById(R.id.question_item_tvAnswer1);
-            tvAnswer2 = itemView.findViewById(R.id.question_item_tvAnswer2);
-            tvAnswer3 = itemView.findViewById(R.id.question_item_tvAnswer3);
-            tvAnswer4 = itemView.findViewById(R.id.question_item_tvAnswer4);
+        public ViewHolder(QuestionItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
 
+        public void bindQuestion(Question question) {
+            binding.setQuestion(question);
+        }
     }
 }

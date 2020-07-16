@@ -1,5 +1,7 @@
 package project.mozgovanje.model.api;
 
+import com.google.firebase.auth.FirebaseUser;
+
 public class UserAPI {
 
     private static UserAPI instance;
@@ -8,8 +10,10 @@ public class UserAPI {
     private String email;
     private String userID;
 
-    private  UserAPI() {
-
+    private UserAPI() {
+        this.userID = "";
+        this.email = "";
+        this.username = "";
     }
 
     public static UserAPI getInstance() {
@@ -41,4 +45,5 @@ public class UserAPI {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
 }

@@ -10,6 +10,11 @@
     <color name="colorTertiary2">#feceab</color>
     <color name="colorQuartary2">#e84a5f</color>
 
-    <color name="wrongAnswerColor">#e8505b</color>
-    <color name="correctAnswerColor">#1dd3bd</color>
+    <color name="googleRed">#DB4437</color>
+    <color name="googleGreen">#0F9D58</color>
+    <color name="googleBlue">#4285F4</color>
+    <color name="orange">#F4B400</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="light_grey">#EAEDF0</color>
 </resources>

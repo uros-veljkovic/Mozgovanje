@@ -20,9 +20,12 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Objects;
+
 import project.mozgovanje.activity.auth.login.LoginActivity;
 import project.mozgovanje.activity.welcome.WelcomeActivity;
 import project.mozgovanje.model.credentials.LoginCredentials;
+import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.util.exception.FieldsEmptyException;
 import project.mozgovanje.model.api.UserAPI;
 import project.mozgovanje.util.validator.FieldValidator;
@@ -54,7 +57,7 @@ public class LoginService {
                         if (task.isSuccessful()) {
                             Toast.makeText(context, "Uspesna prijava !", Toast.LENGTH_SHORT).show();
 
-                            iniUserAPI();
+                            initUserApi();
                             startWelcomeActivity(context);
                         } else {
                             Toast.makeText(context, "Neuspesna prijava...", Toast.LENGTH_SHORT).show();
@@ -63,27 +66,14 @@ public class LoginService {
                 });
     }
 
-    public void logout(final Context context){
-        if(currentUser != null && firebaseAuth != null){
-            firebaseAuth.signOut();
-            context.startActivity(new Intent(context, LoginActivity.class));
-            Toast.makeText(context, "Uspesna odjava !", Toast.LENGTH_SHORT).show();
-            ((Activity)context).finish();
-        }
-    }
 
-    private void startWelcomeActivity(Context context) {
-        context.startActivity(new Intent(context, WelcomeActivity.class));
-        ((Activity) context).finish();
-    }
-
-    private void iniUserAPI() {
+    private void initUserApi() {
 
         currentUser = firebaseAuth.getCurrentUser();
         assert currentUser != null;
         final String userID = currentUser.getUid();
 
-        database.collection("Users").whereEqualTo("userID", userID)
+        database.collection(Constants.FIRESTORE_USERS_COLLECTION).whereEqualTo("userID", userID)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -94,10 +84,24 @@ public class LoginService {
                             for (QueryDocumentSnapshot snapshot : queryDocumentSnapshots) {
                                 UserAPI.getInstance().setUserID(userID);
                                 UserAPI.getInstance().setUsername(snapshot.getString("username"));
+                                UserAPI.getInstance().setEmail(snapshot.getString("email"));
                             }
                         }
                     }
                 });
     }
 
+
+    private void startWelcomeActivity(Context context) {
+        context.startActivity(new Intent(context, WelcomeActivity.class));
+        ((Activity) context).finish();
+    }
+
+    public FirebaseAuth getFirebaseAuth() {
+        return firebaseAuth;
+    }
+
+    public FirebaseUser getCurrentUser() {
+        return currentUser;
+    }
 }

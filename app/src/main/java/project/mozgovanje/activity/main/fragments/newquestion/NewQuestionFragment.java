@@ -41,8 +41,11 @@ public class NewQuestionFragment extends Fragment {
     private void initBinding(LayoutInflater inflater, ViewGroup container) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_question, container, false);
         assert container != null;
+
         question = new Question();
+        question.setCorrectAnswerChar("a");
         clickHandler = new ClickHandler(container.getContext());
+
         binding.setClickHandler(clickHandler);
         binding.setQuestion(question);
     }
@@ -62,15 +65,14 @@ public class NewQuestionFragment extends Fragment {
 
         public void onBtnSacuvaj(View view){
             String questionText = question.getQuestionText();
-            String answerA = "a) " + question.getAnswer1().toUpperCase();
-            String answerB = "b) " + question.getAnswer2().toUpperCase();
-            String answerC = "c) " + question.getAnswer3().toUpperCase();
-            String answerD = "d) " + question.getAnswer4().toUpperCase();
+            String answerA = "a) " + question.getAnswer1();
+            String answerB = "b) " + question.getAnswer2();
+            String answerC = "c) " + question.getAnswer3();
+            String answerD = "d) " + question.getAnswer4();
             String correctAnswer = question.getCorrectAnswerChar();
 
             Question newQuestion = new Question(questionText, answerA, answerB, answerC, answerD, correctAnswer);
-
-            DatabaseController.getInstance().createPendingQuestion(context, newQuestion);
+            DatabaseController.getInstance().createPendingQuestion(context, question);
         }
 
         public void correctAnswerA(View view) {

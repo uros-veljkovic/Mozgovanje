@@ -7,6 +7,8 @@ import android.util.Log;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.google.firebase.firestore.Exclude;
+
 import project.mozgovanje.BR;
 
 public class Question extends BaseObservable implements Parcelable, Comparable<Question> {
@@ -134,6 +136,26 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
         return correctAnswerChar;
     }
 
+    @Exclude
+    public boolean isAnswerACorrect() {
+        return answer1.startsWith(correctAnswerChar);
+    }
+
+    @Exclude
+    public boolean isAnswerBCorrect() {
+        return answer2.startsWith(correctAnswerChar);
+    }
+
+    @Exclude
+    public boolean isAnswerCCorrect() {
+        return answer3.startsWith(correctAnswerChar);
+    }
+
+    @Exclude
+    public boolean isAnswerDCorrect() {
+        return answer4.startsWith(correctAnswerChar);
+    }
+
     @Override
     public String toString() {
         Log.d("==== Question ====", "toString: " + questionID);
@@ -145,7 +167,7 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
                         + "\t" + answer4 + "\n";
     }
 
-    // Parcelable methods
+    // ===== Parcelable methods =====
     @Override
     public int describeContents() {
         return 0;

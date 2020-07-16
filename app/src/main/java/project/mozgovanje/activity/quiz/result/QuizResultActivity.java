@@ -1,10 +1,13 @@
 package project.mozgovanje.activity.quiz.result;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,6 +25,7 @@ import java.util.List;
 import project.mozgovanje.R;
 import project.mozgovanje.activity.main.MainActivity;
 import project.mozgovanje.activity.quiz.wrongquestions.WrongQuestionsActivity;
+import project.mozgovanje.db.controller.DatabaseController;
 import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.model.question.Question;
 
@@ -31,16 +35,32 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
     private ArrayList<Question> correctQuestions = new ArrayList<>();
     private AnyChartView acvPieChart;
     private Button btnVidiPogresneOdgovore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_result);
 
-        Intent intent = getIntent();
-        wrongQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_WRONG_QUESTIONS);
-        correctQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_CORRECT_QUESTIONS);
-
+        getQuestionsFromPreviousActivity();
         initActivityElements();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.more_options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btnLogout:
+                DatabaseController.getInstance().logout(this);
+                return true;
+            default:
+                break;
+        }
+        return false;
     }
 
     @Override
@@ -49,6 +69,12 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
         Intent intent = new Intent(QuizResultActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void getQuestionsFromPreviousActivity() {
+        Intent intent = getIntent();
+        wrongQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_WRONG_QUESTIONS);
+        correctQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_CORRECT_QUESTIONS);
     }
 
     private void initActivityElements() {
@@ -100,9 +126,11 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
 
     //TODO: Bagic sa bojama kod PieChart-a
     private void configPieSlicesColors(Pie pie) {
-        String red = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.wrongAnswerColor));
-        String green = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.correctAnswerColor));
+//        String red = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.wrongAnswerColor));
+//        String green = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.correctAnswerColor));
 
+        String red = "#EB1111";
+        String green = "#2CB96C";
         String[] colors = {red, green};
 
         pie.palette(colors);

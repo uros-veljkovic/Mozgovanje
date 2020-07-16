@@ -9,7 +9,10 @@ import android.view.View;
 
 import pl.droidsonroids.gif.GifImageView;
 import project.mozgovanje.R;
+import project.mozgovanje.activity.admin.AdminActivity;
 import project.mozgovanje.activity.main.MainActivity;
+import project.mozgovanje.model.api.UserAPI;
+import project.mozgovanje.util.constants.Constants;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -33,8 +36,11 @@ public class WelcomeActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(WelcomeActivity.this, MainActivity.class);
-                startActivity(i);
+                if (UserAPI.getInstance().getEmail().equals(Constants.ADMIN_EMAIL)) {
+                    startActivity(new Intent(WelcomeActivity.this, AdminActivity.class));
+                } else {
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                }
             }
         }, 5000);
     }

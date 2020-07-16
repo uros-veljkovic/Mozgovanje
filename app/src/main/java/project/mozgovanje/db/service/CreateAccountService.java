@@ -32,9 +32,8 @@ public class CreateAccountService {
 
     public static final String TAG = "===== CreateAccountService =====";
 
-    private FirebaseAuth firebaseAuth;
-    private FirebaseAuth.AuthStateListener authStateListener;
     private FirebaseFirestore database;
+    private FirebaseAuth firebaseAuth;
     private FirebaseUser currentUser;
 
     public CreateAccountService(FirebaseFirestore db) {
@@ -70,6 +69,7 @@ public class CreateAccountService {
     }
 
     private void initUserAPI(CreateAccountCredentials credentials) {
+
         currentUser = firebaseAuth.getCurrentUser();
 
         UserAPI.getInstance().setUsername(credentials.getUsername());
@@ -112,5 +112,11 @@ public class CreateAccountService {
         ((Activity) context).finish();
     }
 
+    public FirebaseAuth getFirebaseAuth() {
+        return firebaseAuth;
+    }
 
+    public FirebaseUser getCurrentUser() {
+        return currentUser;
+    }
 }

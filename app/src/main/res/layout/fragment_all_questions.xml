@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <EditText
-        android:id="@+id/fragment_all_questions_etSearch"
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/hint_sadrzaj_pitanja"
-        android:importantForAutofill="no"
-        android:inputType="textPersonName"
-        android:layout_margin="16dp"
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_all_questions_rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/question_item" />
+        android:layout_height="match_parent">
 
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/fragment_all_questions_etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_sadrzaj_pitanja"
+            android:importantForAutofill="no"
+            android:inputType="textPersonName"
+            android:layout_margin="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fragment_all_questions_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/question_item" />
+
+
+    </LinearLayout>
+</layout>

@@ -2,9 +2,7 @@ package project.mozgovanje.activity.quiz.wrongquestions;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -14,23 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.mozgovanje.R;
-import project.mozgovanje.activity.main.fragments.allquestions.AllQuestionsRecyclerViewAdapter;
 import project.mozgovanje.databinding.WrongQuestionItemBinding;
 import project.mozgovanje.model.question.Question;
 
-public class WrongQuestionsRecyclerViewAdapter extends RecyclerView.Adapter<WrongQuestionsRecyclerViewAdapter.ViewHolder> {
+public class WrongQuestionsActivityRecyclerViewAdapter extends RecyclerView.Adapter<WrongQuestionsActivityRecyclerViewAdapter.ViewHolder> {
 
     private List<Question> wrongQuestions;
     private Context context;
 
-    public WrongQuestionsRecyclerViewAdapter(Context context, ArrayList<Question> allQuestions) {
+    public WrongQuestionsActivityRecyclerViewAdapter(Context context, ArrayList<Question> allQuestions) {
         this.context = context;
         this.wrongQuestions = allQuestions;
     }
 
     @NonNull
     @Override
-    public WrongQuestionsRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public WrongQuestionsActivityRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         WrongQuestionItemBinding itemBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),
                 R.layout.wrong_question_item,
                 parent,
@@ -40,7 +37,7 @@ public class WrongQuestionsRecyclerViewAdapter extends RecyclerView.Adapter<Wron
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WrongQuestionsRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull WrongQuestionsActivityRecyclerViewAdapter.ViewHolder holder, int position) {
         Question question = wrongQuestions.get(position);
 
         holder.itemBinding.setQuestion(question);

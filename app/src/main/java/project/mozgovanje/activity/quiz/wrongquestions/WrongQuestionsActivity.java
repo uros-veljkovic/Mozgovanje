@@ -1,5 +1,6 @@
 package project.mozgovanje.activity.quiz.wrongquestions;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,12 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import project.mozgovanje.R;
 import project.mozgovanje.activity.quiz.result.QuizResultActivity;
+import project.mozgovanje.db.controller.DatabaseController;
 import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.databinding.ActivityWrongQuestionsBinding;
 import project.mozgovanje.model.question.Question;
@@ -23,13 +27,13 @@ public class WrongQuestionsActivity extends AppCompatActivity {
     private ActivityWrongQuestionsBinding binding;
     private ArrayList<Question> wrongQuestions;
     private ArrayList<Question> correctQuestions;
-    private WrongQuestionsRecyclerViewAdapter adapter;
+    private WrongQuestionsActivityRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWrontQuestionsFromIntent();
+        getWrongQuestionsFromIntent();
         initBinding();
     }
 
@@ -56,6 +60,24 @@ public class WrongQuestionsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.more_options_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btnLogout:
+                DatabaseController.getInstance().logout(this);
+                return true;
+            default:
+                break;
+        }
+        return false;
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         Intent intent = new Intent(WrongQuestionsActivity.this, QuizResultActivity.class);
@@ -66,7 +88,7 @@ public class WrongQuestionsActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void getWrontQuestionsFromIntent() {
+    private void getWrongQuestionsFromIntent() {
         Intent intent = getIntent();
         wrongQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_WRONG_QUESTIONS);
         correctQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_CORRECT_QUESTIONS);
@@ -78,7 +100,7 @@ public class WrongQuestionsActivity extends AppCompatActivity {
         binding.activityWrongQuestionsRv.setLayoutManager(new LinearLayoutManager(this));
         binding.activityWrongQuestionsRv.setHasFixedSize(true);
 
-        adapter = new WrongQuestionsRecyclerViewAdapter(this, wrongQuestions);
+        adapter = new WrongQuestionsActivityRecyclerViewAdapter(this, wrongQuestions);
         binding.activityWrongQuestionsRv.setAdapter(adapter);
     }
 
