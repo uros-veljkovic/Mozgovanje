@@ -124,13 +124,10 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
         configPieSlicesColors(pie);
     }
 
-    //TODO: Bagic sa bojama kod PieChart-a
     private void configPieSlicesColors(Pie pie) {
-//        String red = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.wrongAnswerColor));
-//        String green = "#" + Integer.toHexString(ContextCompat.getColor(this, R.color.correctAnswerColor));
 
-        String red = "#EB1111";
-        String green = "#2CB96C";
+        String red = "#DB4437";
+        String green = "#0F9D58";
         String[] colors = {red, green};
 
         pie.palette(colors);

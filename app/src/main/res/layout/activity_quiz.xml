@@ -27,7 +27,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary1"
+            android:background="@color/googleBlue"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -78,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue"
+                android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
                 android:onClick="@{clickHandler::onBtnAnswer1}"
                 android:text="@{quizMaster.currentQuestion.answer1}"
@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue"
+                android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
                 android:onClick="@{clickHandler::onBtnAnswer2}"
                 android:text="@{quizMaster.currentQuestion.answer2}"
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue"
+                android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
                 android:onClick="@{clickHandler::onBtnAnswer3}"
                 android:text="@{quizMaster.currentQuestion.answer3}"
@@ -111,11 +111,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue"
+                android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
                 android:onClick="@{clickHandler::onBtnAnswer4}"
                 android:text="@{quizMaster.currentQuestion.answer4}"
                 android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/activity_quiz_btnNextQuestion"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="end"
+                android:visibility="invisible"
+                android:onClick="@{clickHandler::onBtnNextQuestion}"
+                android:background="@android:color/transparent"
+                android:foreground="@drawable/ic_arrow_right"
+                android:text="Button" />
         </LinearLayout>
 
         <TextView
@@ -123,14 +134,15 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/edit_text_rounded_blue"
+            android:background="@drawable/edit_text_rounded_blue_border"
             android:backgroundTint="@color/colorTertiary1"
             android:gravity="center"
             android:text="@{StringUtil.convertIntToString(quizMaster.currentQuestion.questionID)}"
             android:textSize="22sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

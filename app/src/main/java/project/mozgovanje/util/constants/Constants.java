@@ -26,8 +26,8 @@ public interface Constants {
     public static final String ARRAY_LIST_WRONG_QUESTIONS = "ARRAY_LIST_WRONG_QUESTIONS";
     public static final String ARRAY_LIST_CORRECT_QUESTIONS = "ARRAY_LIST_CORRECT_QUESTIONS";
 
-    public static final String EDIT_TEXT_BORDER_GREEN_FILEPATH = "/res/layout/edit_text_green_border.xml";
-    public static final String EDIT_TEXT_BORDER_RED_FILEPATH = "/res/layout/edit_text_red_border.xml";
+    public static final String EDIT_TEXT_BORDER_GREEN_FILEPATH = "/res/layout/edit_text_squared_green_border.xml";
+    public static final String EDIT_TEXT_BORDER_RED_FILEPATH = "/res/layout/edit_text_squared_red_border.xml";
     public static final String EDIT_TEXT_BORDER_BLACK_FILEPATH = "/res/layout/edit_text_border.xml";
 
     public static final String ERROR_EMAIL = "Unesite validnu email adresu.";
