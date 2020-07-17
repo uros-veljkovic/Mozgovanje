@@ -22,10 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Objects;
 
 import project.mozgovanje.activity.welcome.WelcomeActivity;
-import project.mozgovanje.util.exception.FieldsEmptyException;
 import project.mozgovanje.model.credentials.CreateAccountCredentials;
 import project.mozgovanje.model.user.User;
 import project.mozgovanje.model.api.UserAPI;
+import project.mozgovanje.util.exception.FieldsEmptyException;
 import project.mozgovanje.util.validator.FieldValidator;
 
 public class CreateAccountService {
@@ -65,6 +65,8 @@ public class CreateAccountService {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "onFailure: " + e.getMessage());
+                Toast.makeText(context, "Neuspesno kreiranje profila...", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

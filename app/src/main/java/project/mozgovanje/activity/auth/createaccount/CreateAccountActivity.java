@@ -24,7 +24,6 @@ import project.mozgovanje.util.exception.FieldsEmptyException;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-
     private ActivityCreateAccountBinding binding;
     private CreateAccountCredentials createAccountCredentials;
     private ClickHandler clickHandler;
@@ -92,7 +91,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-
     private TextWatcher emailWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence email, int start, int count, int after) {
@@ -103,7 +101,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             } else {
                 binding.activityCreateAccountTilEmail.setError(null);
                 validEmail = true;
-                if (validEmail && validPassword && validConfirmPassword)
+                if (validEmail && validPassword && validConfirmPassword && validUsername)
                     binding.activityCreateAccountBtnCreateAccount.setEnabled(true);
             }
         }
@@ -118,7 +116,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         }
     };
-
     private TextWatcher passwordWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,7 +132,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             } else {
                 validPassword = true;
                 binding.activityCreateAccountTilPassword.setError(null);
-                if (validEmail && validPassword && validConfirmPassword )
+                if (validEmail && validPassword && validConfirmPassword && validUsername)
                     binding.activityCreateAccountBtnCreateAccount.setEnabled(true);
             }
         }
@@ -145,7 +142,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         }
     };
-
     private TextWatcher confirmPasswordWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -162,7 +158,7 @@ public class CreateAccountActivity extends AppCompatActivity {
             } else {
                 validConfirmPassword = true;
                 binding.activityCreateAccountTilConfirmPassword.setError(null);
-                if (validEmail && validPassword && validConfirmPassword)
+                if (validEmail && validPassword && validConfirmPassword && validUsername)
                     binding.activityCreateAccountBtnCreateAccount.setEnabled(true);
             }
 
@@ -174,7 +170,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         }
     };
-
     private TextWatcher usernameWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -183,15 +178,19 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-/*            if (s.length() < 4) {
-                binding.activityCreateAccountTilUsername.setError(Constants.ERROR_USERNAME);
+            if (s.length() < 4) {
+                binding.activityCreateAccountTilUsername.setError(Constants.ERROR_USERNAME_TOO_WEEK);
+                validUsername = false;
+                binding.activityCreateAccountBtnCreateAccount.setEnabled(false);
+            } else if (s.length() > 15) {
+                binding.activityCreateAccountTilUsername.setError(Constants.ERROR_USERNAME_TOO_STRONG);
                 validUsername = false;
                 binding.activityCreateAccountBtnCreateAccount.setEnabled(false);
             } else {
                 binding.activityCreateAccountTilConfirmPassword.setError(null);
                 if (validEmail && validPassword && validConfirmPassword && validUsername)
                     binding.activityCreateAccountBtnCreateAccount.setEnabled(true);
-            }*/
+            }
         }
 
         @Override

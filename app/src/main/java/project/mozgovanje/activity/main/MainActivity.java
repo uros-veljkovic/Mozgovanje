@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             switch (item.getItemId()) {
                 case R.id.activity_main_nav_home:
-                    selectedFragment = new FragmentHome(); //Gotov Binding
+                    selectedFragment = new FragmentHome();
                     break;
                 case R.id.activity_main_nav_scoreboard:
                     selectedFragment = new ScoreboardFragment();
@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
 
             assert selectedFragment != null;
 
-            //Ovde kaze zameni mi FrameLayout sa izabranim fragmentom
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.activity_main_fragment_container,
                             selectedFragment)
