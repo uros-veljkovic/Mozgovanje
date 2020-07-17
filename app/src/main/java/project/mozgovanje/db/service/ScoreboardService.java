@@ -13,7 +13,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -41,10 +40,10 @@ public class ScoreboardService {
         geekScoreboard = new ArrayList<>();
         zenScoreboard = new ArrayList<>();
         testScoreboard = new ArrayList<>();
-        loadScoreboards();
+        loadAll();
     }
 
-    private void loadScoreboards() {
+    private void loadAll() {
         load(geekScoreboard, FIRESTORE_GEEK_SCOREBOARD_COLLECTION);
         load(testScoreboard, FIRESTORE_TEST_SCOREBOARD_COLLECTION);
         load(zenScoreboard, FIRESTORE_ZEN_SCOREBOARD_COLLECTION);
@@ -72,7 +71,7 @@ public class ScoreboardService {
         });
     }
 
-    public void createNew(final Score score) {
+    public void create(final Score score) {
         database.collection(score.getInScoreboard())
                 .add(score)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

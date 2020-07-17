@@ -99,7 +99,7 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
     @Override
     public void deleteQuestion(int position) {
         Question questionToDelete = adapter.getQuestion(position);
-        DatabaseController.getInstance().deletePendingQuestion(questionToDelete); //POGLEDAJ LOGD
+        DatabaseController.getInstance().deletePending(questionToDelete); //POGLEDAJ LOGD
         adapter.removeQuestion(position);
         adapter.notifyItemRemoved(position);
     }
@@ -107,14 +107,14 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
     @Override
     public void updateQuestion(int position) {
         Question questionToUpdate = adapter.getQuestion(position);
-        DatabaseController.getInstance().updatePendingQuestion(questionToUpdate);
+        DatabaseController.getInstance().updatePending(questionToUpdate);
     }
 
     @Override
     public void createQuestion(int position) {
         Question selectedQuestion = adapter.getQuestion(position);
         DatabaseController.getInstance().createQuestion(this, selectedQuestion); //POGLEDAJ LOGD
-        DatabaseController.getInstance().deletePendingQuestion(selectedQuestion);
+        DatabaseController.getInstance().deletePending(selectedQuestion);
         adapter.removeQuestion(position);
         adapter.notifyItemRemoved(position);
     }

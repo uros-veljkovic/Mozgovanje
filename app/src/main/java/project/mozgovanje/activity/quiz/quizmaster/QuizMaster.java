@@ -1,4 +1,4 @@
-package project.mozgovanje.model.quizmaster;
+package project.mozgovanje.activity.quiz.quizmaster;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
@@ -98,11 +98,11 @@ public class QuizMaster extends BaseObservable {
     }
 
     private void generateRandomQuestion() {
-        int max = allQuestions.size(); //191
+        int max = allQuestions.size() - 1; //197
         int min = 1;
-        int range = max - min; //
+        int range = max - min; //196
 
-        generatedIndex = (int) ((Math.random() * range) + min);
+        generatedIndex = (int) ((Math.random() * range) + min); //197
 
         currentQuestion = allQuestions.get(generatedIndex);
         notifyPropertyChanged(BR.currentQuestion);

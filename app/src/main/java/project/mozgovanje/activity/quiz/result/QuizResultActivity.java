@@ -29,6 +29,9 @@ import project.mozgovanje.db.controller.DatabaseController;
 import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.model.question.Question;
 
+import static project.mozgovanje.util.constants.Constants.ARRAY_LIST_CORRECT_QUESTIONS;
+import static project.mozgovanje.util.constants.Constants.ARRAY_LIST_WRONG_QUESTIONS;
+
 public class QuizResultActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ArrayList<Question> wrongQuestions = new ArrayList<>();
@@ -53,12 +56,9 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.btnLogout:
-                DatabaseController.getInstance().logout(this);
-                return true;
-            default:
-                break;
+        if (item.getItemId() == R.id.btnLogout) {
+            DatabaseController.getInstance().logout(this);
+            return true;
         }
         return false;
     }
@@ -73,8 +73,8 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
 
     private void getQuestionsFromPreviousActivity() {
         Intent intent = getIntent();
-        wrongQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_WRONG_QUESTIONS);
-        correctQuestions = intent.getParcelableArrayListExtra(Constants.ARRAY_LIST_CORRECT_QUESTIONS);
+        wrongQuestions = intent.getParcelableArrayListExtra(ARRAY_LIST_WRONG_QUESTIONS);
+        correctQuestions = intent.getParcelableArrayListExtra(ARRAY_LIST_CORRECT_QUESTIONS);
     }
 
     private void initActivityElements() {
@@ -135,20 +135,16 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.activity_quiz_result_btnVidiPogresneOdgovore:
-                onBtnVidiPogresneOdgovore();
-                break;
-            default:
-                break;
+        if (v.getId() == R.id.activity_quiz_result_btnVidiPogresneOdgovore) {
+            onBtnVidiPogresneOdgovore();
         }
     }
 
     private void onBtnVidiPogresneOdgovore() {
         Intent intent = new Intent(QuizResultActivity.this, WrongQuestionsActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList(Constants.ARRAY_LIST_WRONG_QUESTIONS, wrongQuestions);
-        bundle.putParcelableArrayList(Constants.ARRAY_LIST_CORRECT_QUESTIONS, correctQuestions);
+        bundle.putParcelableArrayList(ARRAY_LIST_WRONG_QUESTIONS, wrongQuestions);
+        bundle.putParcelableArrayList(ARRAY_LIST_CORRECT_QUESTIONS, correctQuestions);
         intent.putExtras(bundle);
         startActivity(intent);
     }

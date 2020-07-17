@@ -17,7 +17,7 @@ import project.mozgovanje.model.api.UserAPI;
 import project.mozgovanje.model.score.Score;
 import project.mozgovanje.util.observer.QuizEndEventListener;
 import project.mozgovanje.databinding.ActivityQuizBinding;
-import project.mozgovanje.model.quizmaster.QuizMaster;
+import project.mozgovanje.activity.quiz.quizmaster.QuizMaster;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;

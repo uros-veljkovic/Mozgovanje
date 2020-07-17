@@ -1,7 +1,4 @@
-package project.mozgovanje.model.quizmaster;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package project.mozgovanje.activity.quiz.quizmaster;
 
 import java.util.ArrayList;
 

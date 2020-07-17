@@ -65,7 +65,7 @@ public class DatabaseController {
     }
 
     public void createScore(Score score) {
-        scoreboardService.createNew(score);
+        scoreboardService.create(score);
     }
 
     public void createPendingQuestion(Context context, Question question) {
@@ -76,12 +76,17 @@ public class DatabaseController {
         questionService.create(question, FIRESTORE_QUESTION_COLLECTION, context);
     }
 
+    //For the case of refreshing all questions in AllQuestionsFramgment.class
     public void refreshQuestions() {
         questionService.reloadQuestions(FIRESTORE_QUESTION_COLLECTION);
     }
 
     public void refreshPendingQuestions() {
         questionService.reloadQuestions(FIRESTORE_PENDING_QUESTION_COLLECTION);
+    }
+
+    public void refreshScoreboards() {
+        scoreboardService.refreshScoreboards();
     }
 
     public ArrayList<Question> getQuestions() {
@@ -104,23 +109,19 @@ public class DatabaseController {
         return scoreboardService.getGeekScoreboard();
     }
 
-    public void refreshScoreboards() {
-        scoreboardService.refreshScoreboards();
-    }
-
-    public void deletePendingQuestion(Question question) {
+    public void deletePending(Question question) {
         questionService.delete(question, FIRESTORE_PENDING_QUESTION_COLLECTION);
     }
 
-    public void deleteQuestion(Question question) {
+    public void delete(Question question) {
         questionService.delete(question, FIRESTORE_QUESTION_COLLECTION);
     }
 
-    public void updatePendingQuestion(Question question){
+    public void updatePending(Question question){
         questionService.update(question, FIRESTORE_PENDING_QUESTION_COLLECTION);
     }
 
-    public void updateQuestion(Question question){
+    public void update(Question question){
         questionService.update(question, FIRESTORE_QUESTION_COLLECTION);
     }
 

@@ -9,11 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import project.mozgovanje.R;
 import project.mozgovanje.databinding.FragmentNewQuestionBinding;
 import project.mozgovanje.db.controller.DatabaseController;
 import project.mozgovanje.model.question.Question;
+import project.mozgovanje.util.validator.FieldValidator;
 
 
 public class NewQuestionFragment extends Fragment {
@@ -48,22 +50,39 @@ public class NewQuestionFragment extends Fragment {
 
         public ClickHandler(Context context) {
             this.context = context;
+            correctAnswerA(null);//Just to initialize answer a) as an starting correct answer
         }
 
-        public void onBtnResetujPolja(View view){
+        public void onBtnResetujPolja(View view) {
             question = new Question();
-            binding.notifyChange();
+            binding.setQuestion(question);
+            binding.executePendingBindings();
         }
 
-        public void onBtnSacuvaj(View view){
+        public void onBtnSacuvaj(View view) {
             String questionText = question.getQuestionText();
             String answerA = "a) " + question.getAnswer1();
             String answerB = "b) " + question.getAnswer2();
             String answerC = "c) " + question.getAnswer3();
             String answerD = "d) " + question.getAnswer4();
             String correctAnswer = question.getCorrectAnswerChar();
+            if(!FieldValidator.validFields(questionText,
+                    answerA,
+                    answerB,
+                    answerC,
+                    answerD,
+                    correctAnswer)){
+                Toast.makeText(context, "Molimo popunite prazna polja", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            Question newQuestion = new Question(questionText, answerA, answerB, answerC, answerD, correctAnswer);
+            Question newQuestion = new Question(questionText,
+                    answerA,
+                    answerB,
+                    answerC,
+                    answerD,
+                    correctAnswer);
+
             DatabaseController.getInstance().createPendingQuestion(context, question);
         }
 

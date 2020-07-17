@@ -187,7 +187,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                 validUsername = false;
                 binding.activityCreateAccountBtnCreateAccount.setEnabled(false);
             } else {
-                binding.activityCreateAccountTilConfirmPassword.setError(null);
+                validUsername = true;
+                binding.activityCreateAccountTilUsername.setError(null);
                 if (validEmail && validPassword && validConfirmPassword && validUsername)
                     binding.activityCreateAccountBtnCreateAccount.setEnabled(true);
             }

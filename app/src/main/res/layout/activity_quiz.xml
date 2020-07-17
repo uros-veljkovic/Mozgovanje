@@ -14,7 +14,7 @@
 
         <variable
             name="quizMaster"
-            type="project.mozgovanje.model.quizmaster.QuizMaster" />
+            type="project.mozgovanje.activity.quiz.quizmaster.QuizMaster" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -122,11 +122,11 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="end"
-                android:visibility="invisible"
-                android:onClick="@{clickHandler::onBtnNextQuestion}"
                 android:background="@android:color/transparent"
                 android:foreground="@drawable/ic_arrow_right"
-                android:text="Button" />
+                android:onClick="@{clickHandler::onBtnNextQuestion}"
+                android:text="Button"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <TextView

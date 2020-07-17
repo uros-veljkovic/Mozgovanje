@@ -24,4 +24,11 @@ public class FieldValidator {
             throw new FieldsEmptyException("Molimo popunite polja za prijavu");
         }
     }
+
+    public static boolean validFields(String... fields) {
+        for (String filed : fields) {
+            if(filed.isEmpty()) return false;
+        }
+        return true;
+    }
 }
