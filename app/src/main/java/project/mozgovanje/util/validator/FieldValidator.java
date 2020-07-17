@@ -13,9 +13,7 @@ public class FieldValidator {
                 && !credentials.getConfirmPassword().isEmpty()
                 && (credentials.getPassword().equals(credentials.getConfirmPassword()))) {
             return true;
-        } else {
-            throw new FieldsEmptyException("Please fill in all fields !");
-        }
+        } else throw new FieldsEmptyException("Molimo popunite polja za prijavu");
 
     }
 
@@ -23,7 +21,7 @@ public class FieldValidator {
         if (!credentials.getEmail().isEmpty() && !credentials.getPassword().isEmpty()) {
             return true;
         } else {
-            throw new FieldsEmptyException("Please fill in all fields !");
+            throw new FieldsEmptyException("Molimo popunite polja za prijavu");
         }
     }
 }

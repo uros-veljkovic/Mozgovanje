@@ -14,10 +14,8 @@ import project.mozgovanje.model.credentials.LoginCredentials;
 import project.mozgovanje.db.service.CreateAccountService;
 import project.mozgovanje.db.service.LoginService;
 import project.mozgovanje.model.score.Score;
-import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.util.exception.FieldsEmptyException;
 import project.mozgovanje.model.question.Question;
-import project.mozgovanje.util.observer.PendingQuestionsRefreshListener;
 
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_PENDING_QUESTION_COLLECTION;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_QUESTION_COLLECTION;
@@ -79,11 +77,11 @@ public class DatabaseController {
     }
 
     public void refreshQuestions() {
-        questionService.refreshQuestions(FIRESTORE_QUESTION_COLLECTION);
+        questionService.reloadQuestions(FIRESTORE_QUESTION_COLLECTION);
     }
 
     public void refreshPendingQuestions() {
-        questionService.refreshQuestions(FIRESTORE_PENDING_QUESTION_COLLECTION);
+        questionService.reloadQuestions(FIRESTORE_PENDING_QUESTION_COLLECTION);
     }
 
     public ArrayList<Question> getQuestions() {

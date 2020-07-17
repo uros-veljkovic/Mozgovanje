@@ -10,20 +10,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Objects;
 
 import project.mozgovanje.model.question.Question;
-import project.mozgovanje.util.observer.PendingQuestionsRefreshListener;
 
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_PENDING_QUESTION_COLLECTION;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_QUESTION_COLLECTION;
@@ -36,12 +31,11 @@ public class QuestionService {
     private ArrayList<Question> questions;
     private ArrayList<Question> pendingQuestions;
     private int nextIndex;
-//    private PendingQuestionsRefreshListener listener;
 
     public QuestionService(FirebaseFirestore database) {
         this.database = database;
-        readQuestionsFrom(FIRESTORE_QUESTION_COLLECTION);
-        readQuestionsFrom(FIRESTORE_PENDING_QUESTION_COLLECTION);
+        read(FIRESTORE_QUESTION_COLLECTION);
+        read(FIRESTORE_PENDING_QUESTION_COLLECTION);
     }
 
     public void create(final Question newQuestion, String collectionName, final Context context) {
@@ -69,6 +63,37 @@ public class QuestionService {
                 });
     }
 
+    private void read(final String collectionName) {
+
+        initQuestionList(collectionName);
+
+        database.collection(collectionName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "questions SUCCESSFULLY loaded from " + collectionName);
+
+                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                        Question question = document.toObject(Question.class);
+                        if (collectionName.equals(FIRESTORE_QUESTION_COLLECTION))
+                            questions.add(question);
+                        else
+                            pendingQuestions.add(question);
+                    }
+                } else {
+                    Log.d(TAG, "TASK : questions FAILED to load from " + collectionName);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "onFailure: " + e.getMessage());
+            }
+        });
+        //TODO: SREDI LISTENER ZA REFRESHOVANJE PENDING PITNAJA
+//        listener.onRefreshEnd();
+
+    }
 
     public void delete(final Question question, final String collectionName) {
         database.collection(collectionName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -129,43 +154,11 @@ public class QuestionService {
         return pendingQuestions;
     }
 
-    public void refreshQuestions(String collectionName) {
-        readQuestionsFrom(collectionName);
+    public void reloadQuestions(String collectionName) {
+        read(collectionName);
     }
 
-    private void readQuestionsFrom(final String collectionName) {
-
-        initQuestionListBasedOn(collectionName);
-        //TODO: POGLEDAJ DA LI MOZES DA NAKACIS NEKU METODU NA GET DA BI 
-        database.collection(collectionName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    Log.d(TAG, "questions SUCCESSFULLY loaded from " + collectionName);
-
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        Question question = document.toObject(Question.class);
-                        if (collectionName.equals(FIRESTORE_QUESTION_COLLECTION))
-                            questions.add(question);
-                        else
-                            pendingQuestions.add(question);
-                    }
-                } else {
-                    Log.d(TAG, "TASK : questions FAILED to load from " + collectionName);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "onFailure: " + e.getMessage());
-            }
-        });
-        //TODO: SREDI LISTENER ZA REFRESHOVANJE PENDING PITNAJA
-//        listener.onRefreshEnd();
-
-    }
-
-    private void initQuestionListBasedOn(String collectionName) {
+    private void initQuestionList(String collectionName) {
         switch (collectionName) {
             case FIRESTORE_QUESTION_COLLECTION:
                 questions = new ArrayList<>();

@@ -18,5 +18,10 @@ public class StringUtil {
         return "#ff0033";
     }
 
+    public static boolean isEmpty(String string){
+        return string.isEmpty();
+    }
+
+
 
 }

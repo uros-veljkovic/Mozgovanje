@@ -66,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_rounded_green"
             android:onClick="@{clickHandler::onBtnLogin}"
             android:text="Login"
             app:layout_constraintBottom_toTopOf="@+id/activity_login_tvOr"
@@ -88,9 +89,10 @@
 
         <Button
             android:id="@+id/activity_login_btnCreateAccount"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:background="@drawable/edit_text_rounded_blue"
             android:onClick="@{clickHandler::onBtnCreateAccount}"
             android:text="Create Account"
             app:layout_constraintBottom_toBottomOf="parent"

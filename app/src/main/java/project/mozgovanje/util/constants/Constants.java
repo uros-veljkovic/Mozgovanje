@@ -30,4 +30,8 @@ public interface Constants {
     public static final String EDIT_TEXT_BORDER_RED_FILEPATH = "/res/layout/edit_text_red_border.xml";
     public static final String EDIT_TEXT_BORDER_BLACK_FILEPATH = "/res/layout/edit_text_border.xml";
 
+    public static final String ERROR_EMAIL = "Unesite validnu email adresu.";
+    public static final String ERROR_PASSWORD = "MINIMUM 6 karaktera, 1 veliko slovo, 1 malo slovo, 1 broj.";
+    public static final String ERROR_CONFIRM_PASSWORD = "Lozinke moraju biti identicne.";
+    public static final String ERROR_USERNAME = "Username mora imati najmanje 4 karaktera";
 }

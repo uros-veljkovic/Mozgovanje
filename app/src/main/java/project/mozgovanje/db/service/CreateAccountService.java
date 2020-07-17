@@ -42,6 +42,7 @@ public class CreateAccountService {
     }
 
     public void crateAccount(final Context context, final CreateAccountCredentials credentials) throws FieldsEmptyException {
+
         FieldValidator.validate(credentials);
 
         String email = credentials.getEmail();
