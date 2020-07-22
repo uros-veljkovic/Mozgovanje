@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -30,7 +31,9 @@ public class QuestionService {
     private FirebaseFirestore database;
     private ArrayList<Question> questions;
     private ArrayList<Question> pendingQuestions;
-    private int nextIndex;
+    private ArrayList<Question> randomQuestionsForQuiz;
+    private Question question;
+    private int lastQuestionIndex;
 
     public QuestionService(FirebaseFirestore database) {
         this.database = database;
@@ -39,9 +42,9 @@ public class QuestionService {
     }
 
     public void create(final Question newQuestion, String collectionName, final Context context) {
-        nextIndex = questions.size() + 1;
-        newQuestion.setQuestionID(nextIndex);
-        Toast.makeText(context, "NEXT INDEX : " + (nextIndex + 1), Toast.LENGTH_SHORT).show();
+        lastQuestionIndex = questions.size() + 1;
+        newQuestion.setQuestionID(lastQuestionIndex);
+        Toast.makeText(context, "NEXT INDEX : " + (lastQuestionIndex + 1), Toast.LENGTH_SHORT).show();
 
         database.collection(collectionName)
                 .add(newQuestion)
@@ -93,6 +96,37 @@ public class QuestionService {
         //TODO: SREDI LISTENER ZA REFRESHOVANJE PENDING PITNAJA
 //        listener.onRefreshEnd();
 
+    }
+
+    //TODO: BACI POGLED NA OVU METODU
+    public ArrayList<Question> getRandomQuestions(int[] randomIDs) {
+        randomQuestionsForQuiz = new ArrayList<>();
+
+        for (int id : randomIDs) {
+            randomQuestionsForQuiz.add(getQuestionWithID(id));
+        }
+
+        return randomQuestionsForQuiz;
+    }
+
+    private Question getQuestionWithID(int id) {
+        question = new Question();
+        database.collection(FIRESTORE_QUESTION_COLLECTION)
+                .whereEqualTo("questionID", id)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                question = document.toObject(Question.class);
+                            }
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        return question;
     }
 
     public void delete(final Question question, final String collectionName) {
@@ -169,6 +203,26 @@ public class QuestionService {
             default:
                 break;
         }
+    }
+
+    public int getLastQuestionIndex() {
+        database.collection(FIRESTORE_QUESTION_COLLECTION)
+                .orderBy("questionID", Query.Direction.DESCENDING)
+                .limit(1)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        lastQuestionIndex = (int) document.get("questionID");
+                    }
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
+        return lastQuestionIndex;
     }
 
 

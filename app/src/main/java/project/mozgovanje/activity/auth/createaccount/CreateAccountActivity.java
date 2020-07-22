@@ -18,7 +18,7 @@ import project.mozgovanje.R;
 import project.mozgovanje.activity.auth.login.LoginActivity;
 import project.mozgovanje.model.credentials.CreateAccountCredentials;
 import project.mozgovanje.databinding.ActivityCreateAccountBinding;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.util.exception.FieldsEmptyException;
 
@@ -84,7 +84,7 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         public void onBtnCreateAccount(View view) {
             try {
-                DatabaseController.getInstance().createAccount(context, createAccountCredentials);
+                RepositoryController.getInstance().createAccount(context, createAccountCredentials);
             } catch (FieldsEmptyException e) {
                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             }

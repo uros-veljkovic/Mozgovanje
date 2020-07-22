@@ -6,21 +6,19 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import project.mozgovanje.R;
 import project.mozgovanje.databinding.FragmentAllQuestionsBinding;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.question.Question;
 
 //TODO: Implementiraj DataBinding
@@ -37,7 +35,7 @@ public class AllQuestionsFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_all_questions, container, false);
 
-        allQuestions = DatabaseController.getInstance().getQuestions();
+        allQuestions = RepositoryController.getInstance().getQuestions();
         Collections.sort(allQuestions);
 
         binding.fragmentAllQuestionsRv.setLayoutManager(new LinearLayoutManager(getContext()));

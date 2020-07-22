@@ -9,17 +9,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import project.mozgovanje.R;
-import project.mozgovanje.activity.main.fragments.allquestions.AllQuestionsFragment;
 import project.mozgovanje.activity.main.fragments.home.FragmentHome;
 import project.mozgovanje.activity.main.fragments.newquestion.NewQuestionFragment;
 import project.mozgovanje.activity.main.fragments.scoreboard.ScoreboardFragment;
-import project.mozgovanje.activity.main.fragments.user.FragmentUser;
 import project.mozgovanje.databinding.ActivityMainBinding;
-import project.mozgovanje.db.controller.DatabaseController;
-import project.mozgovanje.model.api.UserAPI;
+import project.mozgovanje.db.controller.RepositoryController;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initHomeFragment() {
         getSupportFragmentManager().beginTransaction().replace(R.id.activity_main_fragment_container, new FragmentHome()).commit();
-        Toast.makeText(MainActivity.this, "Hi " + UserAPI.getInstance().getUsername(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.this, "Zdravo " + UserAPI.getInstance().getUsername() + " !", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -54,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btnLogout:
-                DatabaseController.getInstance().logout(this);
+                RepositoryController.getInstance().logout(this);
                 return true;
             default:
                 break;
@@ -83,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.activity_main_nav_new_question:
                     selectedFragment = new NewQuestionFragment();
                     break;
-                case R.id.activity_main_nav_all_questions:
+/*                case R.id.activity_main_nav_all_questions:
                     selectedFragment = new AllQuestionsFragment();
                     break;
                 case R.id.activity_main_nav_user:
                     selectedFragment = new FragmentUser();
-                    break;
+                    break;*/
                 default:
                     break;
             }

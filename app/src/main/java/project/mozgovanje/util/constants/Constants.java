@@ -39,5 +39,9 @@ public interface Constants {
     String ERROR_CONFIRM_PASSWORD = "Lozinke moraju biti identicne.";
     String ERROR_USERNAME_TOO_WEEK = "Username mora imati najmanje 4 karaktera";
     String ERROR_USERNAME_TOO_STRONG = "Username može imati najviše 15 karaktera";
+
+    int ZEN_MODE_NUMBER_OF_QUESTIONS = 20;
+    int TEST_MODE_NUMBER_OF_QUESTIONS = 40;
+    int GEEK_MODE_NUMBER_OF_QUESTIONS = 100;
     // ======================================
 }

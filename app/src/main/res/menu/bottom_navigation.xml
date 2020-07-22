@@ -5,10 +5,11 @@
         android:id="@+id/activity_main_nav_home"
         android:icon="@drawable/ic_home_navbar"
         android:title="@string/home" />
-    <item
+
+<!--    <item
         android:id="@+id/activity_main_nav_all_questions"
         android:icon="@drawable/ic_all_questions_navbar"
-        android:title="@string/all_questions" />
+        android:title="@string/all_questions" />-->
 
     <item
         android:id="@+id/activity_main_nav_new_question"
@@ -20,9 +21,9 @@
         android:icon="@drawable/ic_scoreboard_navbar"
         android:title="@string/scoreboard" />
 
-    <item
+    <!--<item
         android:id="@+id/activity_main_nav_user"
         android:icon="@drawable/ic_user_navbar"
-        android:title="@string/user" />
+        android:title="@string/user" />-->
 
 </menu>

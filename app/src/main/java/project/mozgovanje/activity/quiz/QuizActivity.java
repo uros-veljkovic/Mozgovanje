@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import project.mozgovanje.activity.quiz.result.QuizResultActivity;
 import project.mozgovanje.R;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.api.UserAPI;
 import project.mozgovanje.model.score.Score;
 import project.mozgovanje.util.observer.QuizEndEventListener;
@@ -67,8 +67,9 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
     }
 
     private void initBinding() {
-        quizMaster = new QuizMaster(quizMode);
+        quizMaster = new QuizMaster(quizMode); //TODO : PROMENI LOGIKU, QUIZ MASTER TREBA DA SKIDA JEDNO PO JEDNO PITANJE
         clickHandler = new ClickHandler();
+
         binding.setClickHandler(clickHandler);
         binding.setQuizMaster(quizMaster);
     }
@@ -90,6 +91,7 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
         Score score = new Score();
         score.setUsername(UserAPI.getInstance().getUsername());
         score.setPoints(quizMaster.getCorrectQuestions().size());
+
         switch (quizMode) {
             case ZEN_MODE:
                 score.setInScoreboard(FIRESTORE_ZEN_SCOREBOARD_COLLECTION);
@@ -103,86 +105,96 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
             default:
                 break;
         }
-        DatabaseController.getInstance().createScore(score);
+
+        RepositoryController.getInstance().createScore(score);
     }
 
     public class ClickHandler {
 
-        private Button currentButton;
         private String currentAnswer;
+        private boolean buttonEnabler;
         Drawable greenBackground = ResourcesCompat.getDrawable(getResources(), R.drawable.edit_text_rounded_green, null);
         Drawable redBackground = ResourcesCompat.getDrawable(getResources(), R.drawable.edit_text_rounded_red, null);
+        Drawable whiteBackground = ResourcesCompat.getDrawable(getResources(), R.drawable.edit_text_rounded_blue_border, null);
 
         public ClickHandler() {
-
+            buttonEnabler = true;
         }
 
         public void onBtnAnswer1(View view) {
-            currentAnswer = ANSWER_A;
-            colorSelectedAnswer(ANSWER_A, view);
-            binding.activityQuizBtnNextQuestion.setVisibility(VISIBLE);
+            disableAndPaintAnswerButtons(ANSWER_A);
         }
 
         public void onBtnAnswer2(View view) {
-            currentAnswer = ANSWER_B;
-            colorSelectedAnswer(ANSWER_B, view);
-            binding.activityQuizBtnNextQuestion.setVisibility(VISIBLE);
+            disableAndPaintAnswerButtons(ANSWER_B);
         }
 
         public void onBtnAnswer3(View view) {
-            currentAnswer = ANSWER_C;
-            colorSelectedAnswer(ANSWER_C, view);
-            binding.activityQuizBtnNextQuestion.setVisibility(VISIBLE);
+            disableAndPaintAnswerButtons(ANSWER_C);
         }
 
         public void onBtnAnswer4(View view) {
-            currentAnswer = ANSWER_D;
-            colorSelectedAnswer(ANSWER_D, view);
+            disableAndPaintAnswerButtons(ANSWER_D);
+        }
+
+        private void disableAndPaintAnswerButtons(String clickedButtonAnswerCharacter) {
+            currentAnswer = clickedButtonAnswerCharacter;
+            paintAllButtonsTo(redBackground);
+            paintCorrectAnswerButtonToGreen();
             binding.activityQuizBtnNextQuestion.setVisibility(VISIBLE);
+            enableOrDisableAnswerButtons();
         }
 
-
-        private void colorSelectedAnswer(String answerChar, View view) {
-            currentButton = (Button) view;
-            if (quizMaster.getCurrentQuestion().getCorrectAnswerChar().contains(answerChar)) {
-                currentButton.setBackground(greenBackground);
-            } else {
-                currentButton.setBackground(redBackground);
+        private void paintCorrectAnswerButtonToGreen() {
+            switch (quizMaster.getCurrentQuestion().getCorrectAnswerChar()) {
+                case ANSWER_A:
+                    binding.activityQuizTvAnswer1.setBackground(greenBackground);
+                    binding.activityQuizTvAnswer1.refreshDrawableState();
+                    break;
+                case ANSWER_B:
+                    binding.activityQuizTvAnswer2.setBackground(greenBackground);
+                    binding.activityQuizTvAnswer2.refreshDrawableState();
+                    break;
+                case ANSWER_C:
+                    binding.activityQuizTvAnswer3.setBackground(greenBackground);
+                    binding.activityQuizTvAnswer3.refreshDrawableState();
+                    break;
+                case ANSWER_D:
+                    binding.activityQuizTvAnswer4.setBackground(greenBackground);
+                    binding.activityQuizTvAnswer4.refreshDrawableState();
+                    break;
             }
-            currentButton.refreshDrawableState();
         }
 
-        public void onBtnNextQuestion(View view){
-            currentButton.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.edit_text_rounded_blue_border, null));
-            currentButton.refreshDrawableState();
+        private void paintAllButtonsTo(Drawable background) {
+            binding.activityQuizTvAnswer1.setBackground(background);
+            binding.activityQuizTvAnswer2.setBackground(background);
+            binding.activityQuizTvAnswer3.setBackground(background);
+            binding.activityQuizTvAnswer4.setBackground(background);
+
+            //Need to refresh the state of buttons
+            binding.activityQuizTvAnswer1.refreshDrawableState();
+            binding.activityQuizTvAnswer2.refreshDrawableState();
+            binding.activityQuizTvAnswer3.refreshDrawableState();
+            binding.activityQuizTvAnswer4.refreshDrawableState();
+        }
+
+        public void onBtnNextQuestion(View view) {
+
+            paintAllButtonsTo(whiteBackground);
             binding.activityQuizBtnNextQuestion.setVisibility(INVISIBLE);
             quizMaster.userAnswered(currentAnswer);
             binding.executePendingBindings();
+            enableOrDisableAnswerButtons();
         }
 
-/*        private void changeQuestion(String answer, View view) {
-*//*            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    view.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.edit_text_rounded_blue_border, null));
+        private void enableOrDisableAnswerButtons() {
+            buttonEnabler = !buttonEnabler; //disable
 
-                    view.refreshDrawableState();
-                }
-            }, 3000);*//*
-            try {
-                Thread.currentThread().sleep(3000);
-                view.setBackground(ResourcesCompat.getDrawable(getResources(), R.drawable.edit_text_rounded_blue_border, null));
-                view.refreshDrawableState();
-                quizMaster.userAnswered(answer);
-                binding.executePendingBindings();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        }*/
-
-
+            binding.activityQuizTvAnswer1.setFocusable(buttonEnabler);
+            binding.activityQuizTvAnswer2.setFocusable(buttonEnabler);
+            binding.activityQuizTvAnswer3.setFocusable(buttonEnabler);
+            binding.activityQuizTvAnswer4.setFocusable(buttonEnabler);
+        }
     }
-
-
 }

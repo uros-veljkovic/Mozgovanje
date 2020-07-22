@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import project.mozgovanje.R;
 import project.mozgovanje.databinding.FragmentNewQuestionBinding;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.question.Question;
 import project.mozgovanje.util.validator.FieldValidator;
 
@@ -37,6 +37,7 @@ public class NewQuestionFragment extends Fragment {
         assert container != null;
 
         question = new Question();
+        binding.fragmentNewQuestionRbA.setChecked(true);
         question.setCorrectAnswerChar("a");
         clickHandler = new ClickHandler(container.getContext());
 
@@ -66,12 +67,12 @@ public class NewQuestionFragment extends Fragment {
             String answerC = "c) " + question.getAnswer3();
             String answerD = "d) " + question.getAnswer4();
             String correctAnswer = question.getCorrectAnswerChar();
-            if(!FieldValidator.validFields(questionText,
+            if (!FieldValidator.validFields(questionText,
                     answerA,
                     answerB,
                     answerC,
                     answerD,
-                    correctAnswer)){
+                    correctAnswer)) {
                 Toast.makeText(context, "Molimo popunite prazna polja", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -83,7 +84,8 @@ public class NewQuestionFragment extends Fragment {
                     answerD,
                     correctAnswer);
 
-            DatabaseController.getInstance().createPendingQuestion(context, question);
+            RepositoryController.getInstance().createPendingQuestion(context, question);
+            onBtnResetujPolja(null);
         }
 
         public void correctAnswerA(View view) {

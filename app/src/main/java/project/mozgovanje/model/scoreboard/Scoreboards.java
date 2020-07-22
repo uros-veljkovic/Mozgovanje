@@ -23,14 +23,14 @@ public class Scoreboards {
         this.zenScoreboard = zenScoreboard;
         this.testScoreboard = testScoreboard;
         this.geekScoreboard = geekScoreboard;
-        sortScoreboards();
+//        sortScoreboards();
     }
 
-    private void sortScoreboards() {
+/*    private void sortScoreboards() {
         Collections.sort(zenScoreboard);
         Collections.sort(testScoreboard);
         Collections.sort(geekScoreboard);
-    }
+    }*/
 
     public ArrayList<Score> getZenScoreboard() {
         return zenScoreboard;

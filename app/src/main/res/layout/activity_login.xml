@@ -65,7 +65,7 @@
             android:id="@+id/activity_login_btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/edit_text_rounded_green_border"
             android:onClick="@{clickHandler::onBtnLogin}"
             android:text="Login"
@@ -100,6 +100,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/activity_login_tvOr" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

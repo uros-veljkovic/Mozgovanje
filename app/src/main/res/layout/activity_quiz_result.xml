@@ -22,7 +22,9 @@
         android:id="@+id/activity_quiz_result_btnVidiPogresneOdgovore"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/edit_text_rounded_blue_border"
         android:text="Vidi netacne odgovore"
+        android:layout_margin="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

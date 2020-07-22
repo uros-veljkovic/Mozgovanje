@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import project.mozgovanje.R;
 import project.mozgovanje.databinding.ActivityAdminBinding;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.question.Question;
 
 public class AdminActivity extends AppCompatActivity implements AdminActivityRecyclerViewAdapter.OnItemManipulateListener {
@@ -45,7 +45,7 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btnLogout:
-                DatabaseController.getInstance().logout(this);
+                RepositoryController.getInstance().logout(this);
                 return true;
             default:
                 break;
@@ -55,7 +55,7 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
 
 
     private void initQuestions() {
-        pendingQuestions = DatabaseController.getInstance().getPendingQuestions();
+        pendingQuestions = RepositoryController.getInstance().getPendingQuestions();
     }
 
     private void initBinding() {
@@ -81,13 +81,13 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
     }
 
     private void refreshQuestions() {
-        DatabaseController.getInstance().refreshPendingQuestions();
+        RepositoryController.getInstance().refreshPendingQuestions();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 pendingQuestions = new ArrayList<>();
-                pendingQuestions = DatabaseController.getInstance().getPendingQuestions();
+                pendingQuestions = RepositoryController.getInstance().getPendingQuestions();
                 adapter.setQuestions(pendingQuestions);
                 adapter.notifyDataSetChanged();
                 binding.activityAdminSwipeRefreshLayout.setRefreshing(false);
@@ -99,7 +99,7 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
     @Override
     public void deleteQuestion(int position) {
         Question questionToDelete = adapter.getQuestion(position);
-        DatabaseController.getInstance().deletePending(questionToDelete); //POGLEDAJ LOGD
+        RepositoryController.getInstance().deletePendingQuestion(questionToDelete); //POGLEDAJ LOGD
         adapter.removeQuestion(position);
         adapter.notifyItemRemoved(position);
     }
@@ -107,14 +107,14 @@ public class AdminActivity extends AppCompatActivity implements AdminActivityRec
     @Override
     public void updateQuestion(int position) {
         Question questionToUpdate = adapter.getQuestion(position);
-        DatabaseController.getInstance().updatePending(questionToUpdate);
+        RepositoryController.getInstance().updatePendingQuestion(questionToUpdate);
     }
 
     @Override
     public void createQuestion(int position) {
         Question selectedQuestion = adapter.getQuestion(position);
-        DatabaseController.getInstance().createQuestion(this, selectedQuestion); //POGLEDAJ LOGD
-        DatabaseController.getInstance().deletePending(selectedQuestion);
+        RepositoryController.getInstance().createQuestion(this, selectedQuestion); //POGLEDAJ LOGD
+        RepositoryController.getInstance().deletePendingQuestion(selectedQuestion);
         adapter.removeQuestion(position);
         adapter.notifyItemRemoved(position);
     }

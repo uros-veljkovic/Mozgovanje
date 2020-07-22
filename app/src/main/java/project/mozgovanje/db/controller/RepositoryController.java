@@ -20,31 +20,29 @@ import project.mozgovanje.model.question.Question;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_PENDING_QUESTION_COLLECTION;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_QUESTION_COLLECTION;
 
-public class DatabaseController {
+public class RepositoryController {
 
-    private static final DatabaseController instance = new DatabaseController();
+    private static final RepositoryController instance = new RepositoryController();
 
     private FirebaseFirestore database;
     private LoginService loginService;
-    private LogoutService logoutService;
     private CreateAccountService createAccountService;
+    private LogoutService logoutService;
     private QuestionService questionService;
     private ScoreboardService scoreboardService;
 
-
-    private DatabaseController() {
+    private RepositoryController() {
         database = FirebaseFirestore.getInstance();
-        loginService = new LoginService(database);
-        createAccountService = new CreateAccountService(database);
         questionService = new QuestionService(database);
         scoreboardService = new ScoreboardService(database);
     }
 
-    public static DatabaseController getInstance() {
+    public static RepositoryController getInstance() {
         return instance;
     }
 
     public void login(Context context, LoginCredentials credentials) throws FieldsEmptyException {
+        loginService = new LoginService(database); //dodato
         loginService.login(context, credentials);
         logoutService = new LogoutService(
                 loginService.getFirebaseAuth(),
@@ -52,16 +50,17 @@ public class DatabaseController {
         );
     }
 
-    public void logout(Context context) {
-        logoutService.logout(context);
-    }
-
     public void createAccount(Context context, CreateAccountCredentials credentials) throws FieldsEmptyException {
+        createAccountService = new CreateAccountService(database); //dodato
         createAccountService.crateAccount(context, credentials);
         logoutService = new LogoutService(
                 createAccountService.getFirebaseAuth(),
                 createAccountService.getCurrentUser()
         );
+    }
+
+    public void logout(Context context) {
+        logoutService.logout(context);
     }
 
     public void createScore(Score score) {
@@ -76,6 +75,22 @@ public class DatabaseController {
         questionService.create(question, FIRESTORE_QUESTION_COLLECTION, context);
     }
 
+    public void updatePendingQuestion(Question question){
+        questionService.update(question, FIRESTORE_PENDING_QUESTION_COLLECTION);
+    }
+
+    public void updateQuestion(Question question){
+        questionService.update(question, FIRESTORE_QUESTION_COLLECTION);
+    }
+
+    public void deletePendingQuestion(Question question) {
+        questionService.delete(question, FIRESTORE_PENDING_QUESTION_COLLECTION);
+    }
+
+    public void deleteQuestion(Question question) {
+        questionService.delete(question, FIRESTORE_QUESTION_COLLECTION);
+    }
+
     //For the case of refreshing all questions in AllQuestionsFramgment.class
     public void refreshQuestions() {
         questionService.reloadQuestions(FIRESTORE_QUESTION_COLLECTION);
@@ -86,7 +101,11 @@ public class DatabaseController {
     }
 
     public void refreshScoreboards() {
-        scoreboardService.refreshScoreboards();
+        if(scoreboardService == null){
+            scoreboardService = new ScoreboardService(database);
+            return;
+        }
+        scoreboardService.refreshAll();
     }
 
     public ArrayList<Question> getQuestions() {
@@ -109,20 +128,11 @@ public class DatabaseController {
         return scoreboardService.getGeekScoreboard();
     }
 
-    public void deletePending(Question question) {
-        questionService.delete(question, FIRESTORE_PENDING_QUESTION_COLLECTION);
+    public void refreshScoreboardForMode(int quizMode) {
+        scoreboardService.refreshScoreboardForMode(quizMode);
     }
 
-    public void delete(Question question) {
-        questionService.delete(question, FIRESTORE_QUESTION_COLLECTION);
+    public int getLastQuestionIndex() {
+        return questionService.getLastQuestionIndex();
     }
-
-    public void updatePending(Question question){
-        questionService.update(question, FIRESTORE_PENDING_QUESTION_COLLECTION);
-    }
-
-    public void update(Question question){
-        questionService.update(question, FIRESTORE_QUESTION_COLLECTION);
-    }
-
 }

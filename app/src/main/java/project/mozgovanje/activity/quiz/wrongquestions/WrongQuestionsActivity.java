@@ -17,7 +17,7 @@ import java.util.Collections;
 
 import project.mozgovanje.R;
 import project.mozgovanje.activity.quiz.result.QuizResultActivity;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.util.constants.Constants;
 import project.mozgovanje.databinding.ActivityWrongQuestionsBinding;
 import project.mozgovanje.model.question.Question;
@@ -69,7 +69,7 @@ public class WrongQuestionsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.btnLogout:
-                DatabaseController.getInstance().logout(this);
+                RepositoryController.getInstance().logout(this);
                 return true;
             default:
                 break;

@@ -2,7 +2,6 @@ package project.mozgovanje.activity.quiz.result;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +24,7 @@ import java.util.List;
 import project.mozgovanje.R;
 import project.mozgovanje.activity.main.MainActivity;
 import project.mozgovanje.activity.quiz.wrongquestions.WrongQuestionsActivity;
-import project.mozgovanje.db.controller.DatabaseController;
-import project.mozgovanje.util.constants.Constants;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.question.Question;
 
 import static project.mozgovanje.util.constants.Constants.ARRAY_LIST_CORRECT_QUESTIONS;
@@ -57,7 +55,7 @@ public class QuizResultActivity extends AppCompatActivity implements View.OnClic
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btnLogout) {
-            DatabaseController.getInstance().logout(this);
+            RepositoryController.getInstance().logout(this);
             return true;
         }
         return false;

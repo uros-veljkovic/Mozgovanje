@@ -23,117 +23,55 @@
         tools:context=".activity.quiz.QuizActivity">
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/googleBlue"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/activitiy_quiz_tvQuestionNumber"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center"
-                android:padding="8dp"
+                android:padding="16dp"
                 android:text="@{quizMaster.currentQuizState}"
                 android:textColor="@color/colorTertiary1"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/activitiy_quiz_tvQuestion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/activitiy_quiz_tvQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_margin="16dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="48dp"
                 android:gravity="center"
-                android:maxLines="3"
+                android:maxLines="5"
                 android:text="@{quizMaster.currentQuestion.questionText}"
                 android:textColor="@color/colorTertiary1"
                 android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-
-            <Button
-                android:id="@+id/activity_quiz_tvAnswer1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue_border"
-                android:elevation="3dp"
-                android:onClick="@{clickHandler::onBtnAnswer1}"
-                android:text="@{quizMaster.currentQuestion.answer1}"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/activity_quiz_tvAnswer2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue_border"
-                android:elevation="3dp"
-                android:onClick="@{clickHandler::onBtnAnswer2}"
-                android:text="@{quizMaster.currentQuestion.answer2}"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/activity_quiz_tvAnswer3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue_border"
-                android:elevation="3dp"
-                android:onClick="@{clickHandler::onBtnAnswer3}"
-                android:text="@{quizMaster.currentQuestion.answer3}"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/activity_quiz_tvAnswer4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/edit_text_rounded_blue_border"
-                android:elevation="3dp"
-                android:onClick="@{clickHandler::onBtnAnswer4}"
-                android:text="@{quizMaster.currentQuestion.answer4}"
-                android:textSize="16sp" />
-
-            <ImageButton
-                android:id="@+id/activity_quiz_btnNextQuestion"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_gravity="end"
-                android:background="@android:color/transparent"
-                android:foreground="@drawable/ic_arrow_right"
-                android:onClick="@{clickHandler::onBtnNextQuestion}"
-                android:text="Button"
-                android:visibility="invisible" />
-        </LinearLayout>
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/activity_quiz_tvCountdown"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="24dp"
             android:background="@drawable/edit_text_rounded_blue_border"
             android:backgroundTint="@color/colorTertiary1"
             android:gravity="center"
@@ -143,6 +81,110 @@
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/activity_quiz_constrain_layout_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activity_quiz_tvCountdown">
+
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edit_text_rounded_blue_border"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer1}"
+                android:text="@{quizMaster.currentQuestion.answer1}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_quiz_tvAnswer2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edit_text_rounded_blue_border"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer2}"
+                android:text="@{quizMaster.currentQuestion.answer2}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_quiz_tvAnswer3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_quiz_tvAnswer1" />
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edit_text_rounded_blue_border"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer3}"
+                android:text="@{quizMaster.currentQuestion.answer3}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_quiz_tvAnswer4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_quiz_tvAnswer2" />
+
+            <Button
+                android:id="@+id/activity_quiz_tvAnswer4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/edit_text_rounded_blue_border"
+                android:elevation="3dp"
+                android:onClick="@{clickHandler::onBtnAnswer4}"
+                android:text="@{quizMaster.currentQuestion.answer4}"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/activity_quiz_btnNextQuestion"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_quiz_tvAnswer3" />
+
+            <ImageButton
+                android:id="@+id/activity_quiz_btnNextQuestion"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/transparent"
+                android:foreground="@drawable/ic_arrow_right"
+                android:onClick="@{clickHandler::onBtnNextQuestion}"
+                android:text="Button"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_quiz_tvAnswer4" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import project.mozgovanje.R;
 import project.mozgovanje.activity.auth.createaccount.CreateAccountActivity;
 import project.mozgovanje.databinding.ActivityLoginBinding;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.util.exception.FieldsEmptyException;
 import project.mozgovanje.model.credentials.LoginCredentials;
 
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 
         public void onBtnLogin(View view) {
             try {
-                DatabaseController.getInstance().login(context, credentials);
+                RepositoryController.getInstance().login(context, credentials);
             } catch (FieldsEmptyException e) {
                 Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
             }

@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:elevation="8dp"
         app:cardBackgroundColor="@color/light_grey"
         app:cardCornerRadius="10dp">
 
@@ -33,6 +34,7 @@
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:text="@{question.questionText}"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"

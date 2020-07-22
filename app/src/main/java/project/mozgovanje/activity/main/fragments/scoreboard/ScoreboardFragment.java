@@ -11,17 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import project.mozgovanje.R;
 import project.mozgovanje.databinding.FragmentScoreboardBinding;
-import project.mozgovanje.db.controller.DatabaseController;
+import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.score.Score;
 import project.mozgovanje.model.scoreboard.Scoreboards;
-import project.mozgovanje.util.exception.FieldsEmptyException;
+
+import static project.mozgovanje.util.constants.Constants.GEEK_MODE;
+import static project.mozgovanje.util.constants.Constants.TEST_MODE;
+import static project.mozgovanje.util.constants.Constants.ZEN_MODE;
 
 public class ScoreboardFragment extends Fragment {
 
@@ -48,11 +50,13 @@ public class ScoreboardFragment extends Fragment {
 
     private void loadScores() {
 
-        DatabaseController.getInstance().refreshScoreboards();
+        RepositoryController.getInstance().refreshScoreboards();
 
-        scoreboards = new Scoreboards(DatabaseController.getInstance().getZenScoreboard(),
-                DatabaseController.getInstance().getTestScoreboard(),
-                DatabaseController.getInstance().getGeekScoreboard());
+        scoreboards = new Scoreboards(
+                RepositoryController.getInstance().getZenScoreboard(),
+                RepositoryController.getInstance().getTestScoreboard(),
+                RepositoryController.getInstance().getGeekScoreboard()
+        );
 
 /*        scoreboards.setGeekScoreboard(DatabaseController.getInstance().getGeekScoreboard());
         scoreboards.setTestScoreboard(DatabaseController.getInstance().getTestScoreboard());
@@ -79,18 +83,21 @@ public class ScoreboardFragment extends Fragment {
         }
 
         public void onZenBtnClicked(View view) {
+            RepositoryController.getInstance().refreshScoreboardForMode(ZEN_MODE);
             Collections.sort(scoreboards.getZenScoreboard());
             set(scoreboards.getZenScoreboard());
         }
 
 
         public void onGeekBtnClicked(View view) {
+            RepositoryController.getInstance().refreshScoreboardForMode(GEEK_MODE);
             Collections.sort(scoreboards.getGeekScoreboard());
             set(scoreboards.getGeekScoreboard());
         }
 
 
         public void onTestBtnClicked(View view) {
+            RepositoryController.getInstance().refreshScoreboardForMode(TEST_MODE);
             Collections.sort(scoreboards.getTestScoreboard());
             set(scoreboards.getTestScoreboard());
         }

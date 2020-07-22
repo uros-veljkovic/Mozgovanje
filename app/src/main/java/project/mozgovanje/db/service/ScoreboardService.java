@@ -21,6 +21,9 @@ import project.mozgovanje.model.score.Score;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_GEEK_SCOREBOARD_COLLECTION;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_TEST_SCOREBOARD_COLLECTION;
 import static project.mozgovanje.util.constants.Constants.FIRESTORE_ZEN_SCOREBOARD_COLLECTION;
+import static project.mozgovanje.util.constants.Constants.GEEK_MODE;
+import static project.mozgovanje.util.constants.Constants.TEST_MODE;
+import static project.mozgovanje.util.constants.Constants.ZEN_MODE;
 
 public class ScoreboardService {
 
@@ -33,21 +36,44 @@ public class ScoreboardService {
 
     public ScoreboardService(FirebaseFirestore database) {
         this.database = database;
-        refreshScoreboards();
+        refreshAll();
     }
 
-    public void refreshScoreboards() {
-        geekScoreboard = new ArrayList<>();
+    public void refreshAll() {
+        refreshScoreboardForMode(ZEN_MODE);
+        refreshScoreboardForMode(GEEK_MODE);
+        refreshScoreboardForMode(TEST_MODE);
+/*        geekScoreboard = new ArrayList<>();
         zenScoreboard = new ArrayList<>();
         testScoreboard = new ArrayList<>();
-        loadAll();
+        loadAll();*/
     }
 
-    private void loadAll() {
-        load(geekScoreboard, FIRESTORE_GEEK_SCOREBOARD_COLLECTION);
-        load(testScoreboard, FIRESTORE_TEST_SCOREBOARD_COLLECTION);
-        load(zenScoreboard, FIRESTORE_ZEN_SCOREBOARD_COLLECTION);
+    public void refreshScoreboardForMode(int quizMode) {
+        switch (quizMode){
+            case ZEN_MODE :
+                zenScoreboard = new ArrayList<>();
+                load(zenScoreboard, FIRESTORE_ZEN_SCOREBOARD_COLLECTION);
+                break;
+            case TEST_MODE :
+                testScoreboard = new ArrayList<>();
+                load(testScoreboard, FIRESTORE_TEST_SCOREBOARD_COLLECTION);
+                break;
+            case GEEK_MODE :
+                geekScoreboard = new ArrayList<>();
+                load(geekScoreboard, FIRESTORE_GEEK_SCOREBOARD_COLLECTION);
+                break;
+            default:
+                Log.d(TAG, "refreshScoreboardForMode: Something went wrong...");
+                break;
+        }
     }
+
+/*    private void loadAll() {
+        loadOne(geekScoreboard, FIRESTORE_GEEK_SCOREBOARD_COLLECTION);
+        loadOne(testScoreboard, FIRESTORE_TEST_SCOREBOARD_COLLECTION);
+        loadOne(zenScoreboard, FIRESTORE_ZEN_SCOREBOARD_COLLECTION);
+    }*/
 
     private void load(final ArrayList<Score> scoreboard, final String scoreboardName) {
         database.collection(scoreboardName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -78,6 +104,7 @@ public class ScoreboardService {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Score added to " + score.getInScoreboard() + " with ID: " + documentReference.getId());
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -99,6 +126,5 @@ public class ScoreboardService {
     public ArrayList<Score> getZenScoreboard() {
         return zenScoreboard;
     }
-
 
 }

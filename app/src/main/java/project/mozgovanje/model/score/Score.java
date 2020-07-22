@@ -4,6 +4,13 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 
+import static project.mozgovanje.util.constants.Constants.FIRESTORE_GEEK_SCOREBOARD_COLLECTION;
+import static project.mozgovanje.util.constants.Constants.FIRESTORE_TEST_SCOREBOARD_COLLECTION;
+import static project.mozgovanje.util.constants.Constants.FIRESTORE_ZEN_SCOREBOARD_COLLECTION;
+import static project.mozgovanje.util.constants.Constants.GEEK_MODE;
+import static project.mozgovanje.util.constants.Constants.TEST_MODE;
+import static project.mozgovanje.util.constants.Constants.ZEN_MODE;
+
 public class Score extends BaseObservable implements Comparable<Score> {
 
     private String username;
@@ -32,8 +39,8 @@ public class Score extends BaseObservable implements Comparable<Score> {
     public String getInScoreboard() {
         return inScoreboard;
     }
-    public void setInScoreboard(String inScoreboard) {
-        this.inScoreboard = inScoreboard;
+    public void setInScoreboard(String scoreboard) {
+        this.inScoreboard = scoreboard;
     }
 
     @Bindable
