@@ -9,7 +9,10 @@ import androidx.databinding.Bindable;
 
 import com.google.firebase.firestore.Exclude;
 
+import org.apache.commons.lang3.StringUtils;
+
 import project.mozgovanje.BR;
+import project.mozgovanje.util.string.StringUtil;
 
 public class Question extends BaseObservable implements Parcelable, Comparable<Question> {
 
@@ -29,6 +32,14 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
         this.answer3 = answer3;
         this.answer4 = answer4;
         this.correctAnswerChar = correctAnswerChar;
+        setStartingCharToUpperCase();
+    }
+
+    private void setStartingCharToUpperCase() {
+        answer1 = StringUtil.toUpper(answer1, 3);
+        answer2 = StringUtil.toUpper(answer2, 3);
+        answer3 = StringUtil.toUpper(answer3, 3);
+        answer4 = StringUtil.toUpper(answer4, 3);
     }
 
     public Question(String questionText, String answer1, String answer2, String answer3, String answer4, String correctAnswerChar) {
@@ -38,6 +49,8 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
         this.answer3 = answer3;
         this.answer4 = answer4;
         this.correctAnswerChar = correctAnswerChar;
+        setStartingCharToUpperCase();
+
     }
 
     public Question() {
@@ -47,7 +60,6 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
         super();
         readFromParcel(in);
     }
-
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
         @Override
@@ -91,8 +103,9 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
     }
 
     public void setAnswer1(String answer1) {
-        this.answer1 = answer1;
+        this.answer1 = StringUtil.toUpper(answer1, 3);
         notifyPropertyChanged(BR.answer1);
+
     }
 
     @Bindable
@@ -101,7 +114,7 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
     }
 
     public void setAnswer2(String answer2) {
-        this.answer2 = answer2;
+        this.answer2 = StringUtil.toUpper(answer2, 3);
         notifyPropertyChanged(BR.answer2);
     }
 
@@ -111,7 +124,7 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
     }
 
     public void setAnswer3(String answer3) {
-        this.answer3 = answer3;
+        this.answer3 = StringUtil.toUpper(answer3, 3);
         notifyPropertyChanged(BR.answer3);
     }
 
@@ -121,7 +134,7 @@ public class Question extends BaseObservable implements Parcelable, Comparable<Q
     }
 
     public void setAnswer4(String answer4) {
-        this.answer4 = answer4;
+        this.answer4 = StringUtil.toUpper(answer4, 3);
         notifyPropertyChanged(BR.answer4);
 
     }

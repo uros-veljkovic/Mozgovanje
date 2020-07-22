@@ -22,6 +22,12 @@ public class StringUtil {
         return string.isEmpty();
     }
 
+    public static String toUpper(String string, int charIndex){
 
+        char[] arrayOfChars = string.toCharArray();
+        arrayOfChars[3] = Character.toUpperCase(arrayOfChars[charIndex]);
+
+        return new String(arrayOfChars);
+    }
 
 }

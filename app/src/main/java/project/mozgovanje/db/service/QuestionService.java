@@ -93,12 +93,9 @@ public class QuestionService {
                 Log.d(TAG, "onFailure: " + e.getMessage());
             }
         });
-        //TODO: SREDI LISTENER ZA REFRESHOVANJE PENDING PITNAJA
-//        listener.onRefreshEnd();
 
     }
 
-    //TODO: BACI POGLED NA OVU METODU
     public ArrayList<Question> getRandomQuestions(int[] randomIDs) {
         randomQuestionsForQuiz = new ArrayList<>();
 
