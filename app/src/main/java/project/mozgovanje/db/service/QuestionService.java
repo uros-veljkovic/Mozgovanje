@@ -5,18 +5,22 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import project.mozgovanje.model.question.Question;
@@ -69,7 +73,6 @@ public class QuestionService {
     private void read(final String collectionName) {
 
         initQuestionList(collectionName);
-
         database.collection(collectionName).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -93,7 +96,6 @@ public class QuestionService {
                 Log.d(TAG, "onFailure: " + e.getMessage());
             }
         });
-
     }
 
     public ArrayList<Question> getRandomQuestions(int[] randomIDs) {
@@ -178,10 +180,16 @@ public class QuestionService {
     }
 
     public ArrayList<Question> getQuestions() {
+        if (questions == null || questions.isEmpty()) {
+            reloadQuestions(FIRESTORE_QUESTION_COLLECTION);
+        }
         return questions;
     }
 
     public ArrayList<Question> getPendingQuestions() {
+        if (pendingQuestions == null || pendingQuestions.isEmpty()) {
+            reloadQuestions(FIRESTORE_PENDING_QUESTION_COLLECTION);
+        }
         return pendingQuestions;
     }
 
@@ -221,10 +229,5 @@ public class QuestionService {
 
         return lastQuestionIndex;
     }
-
-
-//    public void setPendingQuestionsListener(PendingQuestionsRefreshListener listener) {
-//        this.listener = listener;
-//    }
 
 }

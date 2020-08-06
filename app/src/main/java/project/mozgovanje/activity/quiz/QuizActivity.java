@@ -8,14 +8,15 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
+import project.mozgovanje.activity.main.MainActivity;
+import project.mozgovanje.activity.quiz.quizmaster.QuizTimer;
 import project.mozgovanje.activity.quiz.result.QuizResultActivity;
 import project.mozgovanje.R;
 import project.mozgovanje.db.controller.RepositoryController;
 import project.mozgovanje.model.api.UserAPI;
 import project.mozgovanje.model.score.Score;
-import project.mozgovanje.util.observer.QuizEndEventListener;
+import project.mozgovanje.util.observer.QuizEventListener;
 import project.mozgovanje.databinding.ActivityQuizBinding;
 import project.mozgovanje.activity.quiz.quizmaster.QuizMaster;
 
@@ -33,14 +34,16 @@ import static project.mozgovanje.util.constants.Constants.FIRESTORE_ZEN_SCOREBOA
 import static project.mozgovanje.util.constants.Constants.GEEK_MODE;
 import static project.mozgovanje.util.constants.Constants.MODE;
 import static project.mozgovanje.util.constants.Constants.TEST_MODE;
+import static project.mozgovanje.util.constants.Constants.TIME_OUT;
 import static project.mozgovanje.util.constants.Constants.ZEN_MODE;
 
-public class QuizActivity extends AppCompatActivity implements QuizEndEventListener {
+public class QuizActivity extends AppCompatActivity implements QuizEventListener {
 
-    private ActivityQuizBinding binding;
     private int quizMode;
-    private ClickHandler clickHandler;
     private QuizMaster quizMaster;
+    private QuizTimer quizTimer;
+    private ActivityQuizBinding binding;
+    private ClickHandler clickHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +52,6 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
 
         initMode();
         initBinding();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        quizMaster.setQuizEndEventListener(this);
     }
 
     private void initMode() {
@@ -67,11 +63,29 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
     }
 
     private void initBinding() {
-        quizMaster = new QuizMaster(quizMode); //TODO : PROMENI LOGIKU, QUIZ MASTER TREBA DA SKIDA JEDNO PO JEDNO PITANJE
         clickHandler = new ClickHandler();
+        quizMaster = new QuizMaster(quizMode);
+        quizTimer = new QuizTimer(this);
 
         binding.setClickHandler(clickHandler);
         binding.setQuizMaster(quizMaster);
+        binding.setScoreManager(quizMaster.getScoreManager());
+        binding.setQuizTimer(quizTimer);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        quizMaster.setQuizEventListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(QuizActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
@@ -87,10 +101,15 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
         finish();
     }
 
+    @Override
+    public void onTimeOut() {
+        clickHandler.onTimeOut();
+    }
+
     private void saveScore() {
         Score score = new Score();
         score.setUsername(UserAPI.getInstance().getUsername());
-        score.setPoints(quizMaster.getCorrectQuestions().size());
+        score.setPoints(quizMaster.getTotalPoints());
 
         switch (quizMode) {
             case ZEN_MODE:
@@ -122,19 +141,27 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
         }
 
         public void onBtnAnswer1(View view) {
+            quizTimer.stop();
             disableAndPaintAnswerButtons(ANSWER_A);
         }
 
         public void onBtnAnswer2(View view) {
+            quizTimer.stop();
             disableAndPaintAnswerButtons(ANSWER_B);
         }
 
         public void onBtnAnswer3(View view) {
+            quizTimer.stop();
             disableAndPaintAnswerButtons(ANSWER_C);
         }
 
         public void onBtnAnswer4(View view) {
+            quizTimer.stop();
             disableAndPaintAnswerButtons(ANSWER_D);
+        }
+
+        public void onTimeOut(){
+            disableAndPaintAnswerButtons(TIME_OUT);
         }
 
         private void disableAndPaintAnswerButtons(String clickedButtonAnswerCharacter) {
@@ -186,6 +213,8 @@ public class QuizActivity extends AppCompatActivity implements QuizEndEventListe
             quizMaster.userAnswered(currentAnswer);
             binding.executePendingBindings();
             enableOrDisableAnswerButtons();
+            //TODO: PAZI !!!
+            quizTimer.start();
         }
 
         private void enableOrDisableAnswerButtons() {

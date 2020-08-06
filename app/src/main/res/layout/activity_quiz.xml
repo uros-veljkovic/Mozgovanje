@@ -15,6 +15,14 @@
         <variable
             name="quizMaster"
             type="project.mozgovanje.activity.quiz.quizmaster.QuizMaster" />
+
+        <variable
+            name="quizTimer"
+            type="project.mozgovanje.activity.quiz.quizmaster.QuizTimer" />
+
+        <variable
+            name="scoreManager"
+            type="project.mozgovanje.activity.quiz.quizmaster.ScoreManager" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,7 +48,7 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
                 android:padding="16dp"
-                android:text="@{quizMaster.currentQuizState}"
+                android:text="@{StringUtil.getCurrentQuizState(quizMaster.currentQuestionIndex, quizMaster.lastQuestionIndex)}"
                 android:textColor="@color/colorTertiary1"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -59,7 +67,6 @@
                 android:gravity="center"
                 android:maxLines="5"
                 android:text="@{quizMaster.currentQuestion.questionText}"
-                android:textColor="@color/colorTertiary1"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +82,8 @@
             android:background="@drawable/edit_text_rounded_blue_border"
             android:backgroundTint="@color/colorTertiary1"
             android:gravity="center"
-            android:text="@{StringUtil.convertIntToString(quizMaster.currentQuestion.questionID)}"
+            android:textColor="@{quizTimer.warningTime? @android:color/holo_red_light : @android:color/black}"
+            android:text="@={`` + quizTimer.timeLeft}"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
@@ -118,9 +126,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
@@ -138,9 +144,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
@@ -158,9 +162,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginLeft="24dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginRight="24dp"
                 android:layout_marginBottom="32dp"
                 android:background="@drawable/edit_text_rounded_blue_border"
                 android:elevation="3dp"
@@ -180,13 +182,59 @@
                 android:layout_marginEnd="24dp"
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
+                android:contentDescription="@string/next"
                 android:foreground="@drawable/ic_arrow_right"
                 android:onClick="@{clickHandler::onBtnNextQuestion}"
-                android:text="Button"
+                android:text="@string/next"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/activity_quiz_tvAnswer4" />
+
+            <TextView
+                android:id="@+id/activity_quiz_placeholderInkrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:text="@string/inkrement"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_quiz_tvAnswer4" />
+
+            <TextView
+                android:id="@+id/activity_quiz_tvInkrement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@={`` + scoreManager.increment}"
+                app:layout_constraintBottom_toBottomOf="@id/activity_quiz_placeholderInkrement"
+                app:layout_constraintEnd_toEndOf="@+id/activity_quiz_tvUkupnoPoena"
+                app:layout_constraintLeft_toRightOf="@id/activity_quiz_placeholderInkrement"
+                app:layout_constraintTop_toTopOf="@id/activity_quiz_placeholderInkrement"
+                tools:text="2" />
+
+            <TextView
+                android:id="@+id/activity_quiz_placeholderUkupnoPoena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/ukupno_poena"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/activity_quiz_placeholderInkrement" />
+
+            <TextView
+                android:id="@+id/activity_quiz_tvUkupnoPoena"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@={`` + scoreManager.totalPoints}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/activity_quiz_placeholderUkupnoPoena"
+                app:layout_constraintLeft_toRightOf="@id/activity_quiz_placeholderUkupnoPoena"
+                app:layout_constraintTop_toTopOf="@id/activity_quiz_placeholderUkupnoPoena"
+                tools:text="24" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

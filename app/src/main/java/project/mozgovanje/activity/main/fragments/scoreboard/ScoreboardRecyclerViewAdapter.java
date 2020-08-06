@@ -46,6 +46,11 @@ public class ScoreboardRecyclerViewAdapter extends RecyclerView.Adapter<Scoreboa
         return scores.size();
     }
 
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private UserScoreItemBinding binding;

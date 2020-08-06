@@ -10,6 +10,11 @@ public class StringUtil {
         return "" + points + " pts";
     }
 
+    public static String getCurrentQuizState(int currentQuestionIndex, int lastQuestionIndex){
+        return currentQuestionIndex + "/" + lastQuestionIndex;
+    }
+
+
     public static String getCorrectAnswerColor(){
         return "#85bb65";
     }

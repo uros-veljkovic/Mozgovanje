@@ -94,6 +94,11 @@ public class CreateAccountActivity extends AppCompatActivity {
     private TextWatcher emailWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence email, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence email, int start, int before, int count) {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.activityCreateAccountTilEmail.setError(Constants.ERROR_EMAIL);
                 validEmail = false;
@@ -104,11 +109,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 if (validEmail && validPassword && validConfirmPassword && validUsername)
                     binding.activityCreateAccountBtnCreateAccount.setEnabled(true);
             }
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
         }
 
         @Override

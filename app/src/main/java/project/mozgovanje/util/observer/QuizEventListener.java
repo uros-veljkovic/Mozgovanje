@@ -1,5 +1,6 @@
 package project.mozgovanje.util.observer;
 
-public interface QuizEndEventListener {
+public interface QuizEventListener {
     void onQuizEnd();
+    void onTimeOut();
 }

@@ -7,6 +7,7 @@ import project.mozgovanje.model.question.Question;
 
 public class AnsweredQuestions {
 
+
     private ArrayList<Question> wrongQuestions;
     private ArrayList<Question> correctQuestions;
     private ArrayList<Integer> indexes;

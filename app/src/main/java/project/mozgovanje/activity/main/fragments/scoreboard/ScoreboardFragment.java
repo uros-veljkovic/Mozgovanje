@@ -67,16 +67,15 @@ public class ScoreboardFragment extends Fragment {
     }
 
     private void initRecyclerView() {
-        adapter = new ScoreboardRecyclerViewAdapter(getContext(), scoreboards.getZenScoreboard());
+        adapter = new ScoreboardRecyclerViewAdapter(requireActivity(), scoreboards.getZenScoreboard());
 
         binding.fragmentScoreboardRv.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.fragmentScoreboardRv.setHasFixedSize(true);
         binding.fragmentScoreboardRv.setAdapter(adapter);
+        clickHandler.onZenBtnClicked(null); //Inicijalno prikazi Zen scoreboard
     }
 
     public class ClickHandler {
-
-        public Context context;
 
         public ClickHandler() {
 
@@ -103,10 +102,10 @@ public class ScoreboardFragment extends Fragment {
         }
 
         private void set(ArrayList<Score> scoreboard) {
-            adapter = new ScoreboardRecyclerViewAdapter(getContext(), scoreboard);
+            adapter.setScores(scoreboard);
             binding.fragmentScoreboardRv.setAdapter(adapter);
-            binding.notifyChange();
-            adapter.notifyDataSetChanged();
+//            binding.notifyChange();
+//            adapter.notifyDataSetChanged();
         }
 
     }

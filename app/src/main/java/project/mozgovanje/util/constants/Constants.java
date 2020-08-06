@@ -21,11 +21,12 @@ public interface Constants {
     int GEEK_MODE = 3;
     // =============================
 
-    // ======== CORRECT ANSWER CHARACTERS ========
+    // ======== QUESTION ANSWER CHARACTERS ========
     String ANSWER_A = "a";
     String ANSWER_B = "b";
     String ANSWER_C = "c";
     String ANSWER_D = "d";
+    String TIME_OUT = "ERROR"; // Used when timer gets to 0
     // ===========================================
 
     // ======== PARCELABLE ========
@@ -44,4 +45,7 @@ public interface Constants {
     int TEST_MODE_NUMBER_OF_QUESTIONS = 40;
     int GEEK_MODE_NUMBER_OF_QUESTIONS = 100;
     // ======================================
+
+    public static final int COUNTDOWN_IN_MILLISECONDS = 20000;
+
 }
